@@ -285,6 +285,7 @@ type Authenticator struct {
   HttpAuthenticationPassword string                    `json:"httpAuthenticationPassword,omitempty"`
   HttpAuthenticationUsername string                    `json:"httpAuthenticationUsername,omitempty"`
   Id                        string                    `json:"id,omitempty"`
+  InsertInstant             int64                     `json:"insertInstant,omitempty"`
   Name                      string                    `json:"name,omitempty"`
   SslCertificateId          string                    `json:"sslCertificateId,omitempty"`
   Type                      AuthenticatorType         `json:"type,omitempty"`
@@ -304,7 +305,6 @@ type AuthenticatorRequest struct {
 type AuthenticatorResponse struct {
   BaseHTTPResponse
   Authenticator             Authenticator             `json:"authenticator,omitempty"`
-  Authenticators            []Authenticator           `json:"authenticators,omitempty"`
 }
 func (b *AuthenticatorResponse) SetStatus(status int) {
   b.StatusCode = status
@@ -317,7 +317,8 @@ func (b *AuthenticatorResponse) SetStatus(status int) {
  */
 type AuthenticatorType string
 const (
-  AuthenticatorType_LDAP                 AuthenticatorType    = "LDAP"
+  AuthenticatorType_Ldap                 AuthenticatorType    = "ldap"
+  AuthenticatorType_Generic              AuthenticatorType    = "generic"
 )
 
 /**
