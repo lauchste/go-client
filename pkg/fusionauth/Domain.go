@@ -275,6 +275,52 @@ type AuthenticationTokenConfiguration struct {
 }
 
 /**
+ * Models an external authenticator.
+ *
+ * @author Trevor Smith
+ */
+type Authenticator struct {
+  Data                      map[string]interface{}    `json:"data,omitempty"`
+  Headers                   map[string]string         `json:"headers,omitempty"`
+  HttpAuthenticationPassword string                    `json:"httpAuthenticationPassword,omitempty"`
+  HttpAuthenticationUsername string                    `json:"httpAuthenticationUsername,omitempty"`
+  Id                        string                    `json:"id,omitempty"`
+  Name                      string                    `json:"name,omitempty"`
+  SslCertificateId          string                    `json:"sslCertificateId,omitempty"`
+  Type                      AuthenticatorType         `json:"type,omitempty"`
+  Uri                       string                    `json:"uri,omitempty"`
+}
+
+/**
+ * @author Trevor Smith
+ */
+type AuthenticatorRequest struct {
+  Authenticator             Authenticator             `json:"authenticator,omitempty"`
+}
+
+/**
+ * @author Trevor Smith
+ */
+type AuthenticatorResponse struct {
+  BaseHTTPResponse
+  Authenticator             Authenticator             `json:"authenticator,omitempty"`
+  Authenticators            []Authenticator           `json:"authenticators,omitempty"`
+}
+func (b *AuthenticatorResponse) SetStatus(status int) {
+  b.StatusCode = status
+}
+
+/**
+ * The types of authenticators.
+ *
+ * @author Trevor Smith
+ */
+type AuthenticatorType string
+const (
+  AuthenticatorType_LDAP                 AuthenticatorType    = "LDAP"
+)
+
+/**
  * Base-class for all FusionAuth events.
  *
  * @author Brian Pontarelli
