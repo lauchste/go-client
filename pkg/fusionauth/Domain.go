@@ -305,6 +305,7 @@ type AuthenticatorRequest struct {
 type AuthenticatorResponse struct {
   BaseHTTPResponse
   Authenticator             Authenticator             `json:"authenticator,omitempty"`
+  Authenticators            []Authenticator           `json:"authenticators,omitempty"`
 }
 func (b *AuthenticatorResponse) SetStatus(status int) {
   b.StatusCode = status
