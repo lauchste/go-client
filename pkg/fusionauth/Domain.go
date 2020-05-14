@@ -287,7 +287,7 @@ type Authenticator struct {
   Id                        string                    `json:"id,omitempty"`
   InsertInstant             int64                     `json:"insertInstant,omitempty"`
   Name                      string                    `json:"name,omitempty"`
-  SslCertificateId          string                    `json:"sslCertificateId,omitempty"`
+  SslCertificateKeysId      string                    `json:"sslCertificateKeysId,omitempty"`
   Type                      AuthenticatorType         `json:"type,omitempty"`
   Uri                       string                    `json:"uri,omitempty"`
 }
