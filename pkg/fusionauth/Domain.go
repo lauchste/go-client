@@ -295,6 +295,25 @@ type Authenticator struct {
 /**
  * @author Trevor Smith
  */
+type AuthenticatorPolicy struct {
+  AuthenticatorId           string                    `json:"authenticatorId,omitempty"`
+  Data                      map[string]interface{}    `json:"data,omitempty"`
+  MigrateIdentity           bool                      `json:"migrateIdentity,omitempty"`
+  Run                       AuthenticatorPolicyTrigger `json:"run,omitempty"`
+  Sequence                  int                       `json:"sequence,omitempty"`
+}
+
+/**
+ * @author Trevor Smith
+ */
+type AuthenticatorPolicyTrigger string
+const (
+  AuthenticatorPolicyTrigger_Always               AuthenticatorPolicyTrigger = "always"
+)
+
+/**
+ * @author Trevor Smith
+ */
 type AuthenticatorRequest struct {
   Authenticator             Authenticator             `json:"authenticator,omitempty"`
 }
@@ -2563,6 +2582,7 @@ type Templates struct {
  * @author Daniel DeGroff
  */
 type Tenant struct {
+  AuthenticatorPolicies     []AuthenticatorPolicy     `json:"authenticatorPolicies,omitempty"`
   Configured                bool                      `json:"configured,omitempty"`
   Data                      map[string]interface{}    `json:"data,omitempty"`
   EmailConfiguration        EmailConfiguration        `json:"emailConfiguration,omitempty"`
