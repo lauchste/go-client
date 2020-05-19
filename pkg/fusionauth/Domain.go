@@ -339,6 +339,7 @@ type AuthenticatorType string
 const (
   AuthenticatorType_Ldap                 AuthenticatorType    = "ldap"
   AuthenticatorType_Generic              AuthenticatorType    = "generic"
+  AuthenticatorType_FusionAuth           AuthenticatorType    = "fusionAuth"
 )
 
 /**
@@ -934,6 +935,14 @@ const (
   ExpiryUnit_MONTHS               ExpiryUnit           = "MONTHS"
   ExpiryUnit_YEARS                ExpiryUnit           = "YEARS"
 )
+
+/**
+ * @author Trevor Smith
+ */
+type ExternalAuthenticationRequest struct {
+  LoginId                   string                    `json:"loginId,omitempty"`
+  Password                  string                    `json:"password,omitempty"`
+}
 
 /**
  * @author Daniel DeGroff
