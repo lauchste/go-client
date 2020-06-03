@@ -280,13 +280,16 @@ type AuthenticationTokenConfiguration struct {
  * @author Trevor Smith
  */
 type Authenticator struct {
+  ConnectTimeout            int                       `json:"connectTimeout,omitempty"`
   Data                      map[string]interface{}    `json:"data,omitempty"`
   Headers                   map[string]string         `json:"headers,omitempty"`
   HttpAuthenticationPassword string                    `json:"httpAuthenticationPassword,omitempty"`
   HttpAuthenticationUsername string                    `json:"httpAuthenticationUsername,omitempty"`
   Id                        string                    `json:"id,omitempty"`
   InsertInstant             int64                     `json:"insertInstant,omitempty"`
+  LambdaConfiguration       LambdaConfiguration       `json:"lambdaConfiguration,omitempty"`
   Name                      string                    `json:"name,omitempty"`
+  ReadTimeout               int                       `json:"readTimeout,omitempty"`
   SslCertificateKeysId      string                    `json:"sslCertificateKeysId,omitempty"`
   Type                      AuthenticatorType         `json:"type,omitempty"`
   Uri                       string                    `json:"uri,omitempty"`
@@ -298,18 +301,10 @@ type Authenticator struct {
 type AuthenticatorPolicy struct {
   AuthenticatorId           string                    `json:"authenticatorId,omitempty"`
   Data                      map[string]interface{}    `json:"data,omitempty"`
-  MigrateIdentity           bool                      `json:"migrateIdentity,omitempty"`
-  Run                       AuthenticatorPolicyTrigger `json:"run,omitempty"`
+  ExecutionTrigger          ExecutionTrigger          `json:"executionTrigger,omitempty"`
+  MigrationStrategy         MigrationStrategy         `json:"migrationStrategy,omitempty"`
   Sequence                  int                       `json:"sequence,omitempty"`
 }
-
-/**
- * @author Trevor Smith
- */
-type AuthenticatorPolicyTrigger string
-const (
-  AuthenticatorPolicyTrigger_Always               AuthenticatorPolicyTrigger = "always"
-)
 
 /**
  * @author Trevor Smith
@@ -921,6 +916,14 @@ const (
   EventType_UserEmailVerified    EventType            = "UserEmailVerified"
   EventType_UserPasswordBreach   EventType            = "UserPasswordBreach"
   EventType_Test                 EventType            = "Test"
+)
+
+/**
+ * @author Trevor Smith
+ */
+type ExecutionTrigger string
+const (
+  ExecutionTrigger_Always               ExecutionTrigger     = "always"
 )
 
 /**
@@ -1641,6 +1644,10 @@ type ProviderLambdaConfiguration struct {
   ReconcileId               string                    `json:"reconcileId,omitempty"`
 }
 
+type LambdaConfiguration struct {
+  ReconcileId               string                    `json:"reconcileId,omitempty"`
+}
+
 /**
  * Lambda API request object.
  *
@@ -1675,6 +1682,7 @@ const (
   LambdaType_OpenIDReconcile      LambdaType           = "OpenIDReconcile"
   LambdaType_SAMLv2Reconcile      LambdaType           = "SAMLv2Reconcile"
   LambdaType_SAMLv2Populate       LambdaType           = "SAMLv2Populate"
+  LambdaType_LdapReconcile        LambdaType           = "LdapReconcile"
 )
 
 /**
@@ -1875,6 +1883,16 @@ type MetaData struct {
   Device                    DeviceInfo                `json:"device,omitempty"`
   Scopes                    []string                  `json:"scopes,omitempty"`
 }
+
+/**
+ * @author Trevor Smith
+ */
+type MigrationStrategy string
+const (
+  MigrationStrategy_CreateShellUser      MigrationStrategy    = "createShellUser"
+  MigrationStrategy_SynchronizeUser      MigrationStrategy    = "synchronizeUser"
+  MigrationStrategy_MigrateIdentity      MigrationStrategy    = "migrateIdentity"
+)
 
 /**
  * @author Daniel DeGroff
@@ -2846,6 +2864,7 @@ type UIConfiguration struct {
 type User struct {
   SecureIdentity
   Active                    bool                      `json:"active,omitempty"`
+  AuthenticatorId           string                    `json:"authenticatorId,omitempty"`
   BirthDate                 string                    `json:"birthDate,omitempty"`
   CleanSpeakId              string                    `json:"cleanSpeakId,omitempty"`
   Data                      map[string]interface{}    `json:"data,omitempty"`
