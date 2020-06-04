@@ -290,7 +290,7 @@ type Authenticator struct {
   LambdaConfiguration       LambdaConfiguration       `json:"lambdaConfiguration,omitempty"`
   Name                      string                    `json:"name,omitempty"`
   ReadTimeout               int                       `json:"readTimeout,omitempty"`
-  SslCertificateKeysId      string                    `json:"sslCertificateKeysId,omitempty"`
+  SslCertificateKeyId       string                    `json:"sslCertificateKeyId,omitempty"`
   Type                      AuthenticatorType         `json:"type,omitempty"`
   Uri                       string                    `json:"uri,omitempty"`
 }
