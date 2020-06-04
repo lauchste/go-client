@@ -304,6 +304,7 @@ type AuthenticationTokenConfiguration struct {
  * @author Trevor Smith
  */
 type Authenticator struct {
+  AuthenticationUri         string                    `json:"authenticationUri,omitempty"`
   ConnectTimeout            int                       `json:"connectTimeout,omitempty"`
   Data                      map[string]interface{}    `json:"data,omitempty"`
   Headers                   map[string]string         `json:"headers,omitempty"`
@@ -314,9 +315,9 @@ type Authenticator struct {
   LambdaConfiguration       LambdaConfiguration       `json:"lambdaConfiguration,omitempty"`
   Name                      string                    `json:"name,omitempty"`
   ReadTimeout               int                       `json:"readTimeout,omitempty"`
+  RetrieveUserUri           string                    `json:"retrieveUserUri,omitempty"`
   SslCertificateKeyId       string                    `json:"sslCertificateKeyId,omitempty"`
   Type                      AuthenticatorType         `json:"type,omitempty"`
-  Uri                       string                    `json:"uri,omitempty"`
 }
 
 /**
@@ -1728,6 +1729,7 @@ const (
   LambdaType_GoogleReconcile      LambdaType           = "GoogleReconcile"
   LambdaType_HYPRReconcile        LambdaType           = "HYPRReconcile"
   LambdaType_TwitterReconcile     LambdaType           = "TwitterReconcile"
+  LambdaType_LdapReconcile        LambdaType           = "LdapReconcile"
 )
 
 /**
