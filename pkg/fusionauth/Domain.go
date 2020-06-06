@@ -305,24 +305,29 @@ type AuthenticationTokenConfiguration struct {
  */
 type Authenticator struct {
   AuthenticationUri         string                    `json:"authenticationUri,omitempty"`
+  BaseStructure             string                    `json:"baseStructure,omitempty"`
   ConnectTimeout            int                       `json:"connectTimeout,omitempty"`
   Data                      map[string]interface{}    `json:"data,omitempty"`
+  Debug                     bool                      `json:"debug,omitempty"`
+  EmailAttribute            string                    `json:"emailAttribute,omitempty"`
   Headers                   map[string]string         `json:"headers,omitempty"`
   HttpAuthenticationPassword string                    `json:"httpAuthenticationPassword,omitempty"`
   HttpAuthenticationUsername string                    `json:"httpAuthenticationUsername,omitempty"`
   Id                        string                    `json:"id,omitempty"`
+  IdentifyingAttribute      string                    `json:"identifyingAttribute,omitempty"`
   InsertInstant             int64                     `json:"insertInstant,omitempty"`
   LambdaConfiguration       LambdaConfiguration       `json:"lambdaConfiguration,omitempty"`
   Name                      string                    `json:"name,omitempty"`
   ReadTimeout               int                       `json:"readTimeout,omitempty"`
+  RequestedAttributes       []string                  `json:"requestedAttributes,omitempty"`
   RetrieveUserUri           string                    `json:"retrieveUserUri,omitempty"`
   SslCertificateKeyId       string                    `json:"sslCertificateKeyId,omitempty"`
+  SystemAccountDn           string                    `json:"systemAccountDn,omitempty"`
+  SystemAccountPassword     string                    `json:"systemAccountPassword,omitempty"`
   Type                      AuthenticatorType         `json:"type,omitempty"`
 }
 
-/**
- * @author Trevor Smith
- */
+// - Why does this implement _InternalJSONColumn, and why does this use @InternalJSONColumn?, does this have it's own table with a data column?
 type AuthenticatorPolicy struct {
   AuthenticatorId           string                    `json:"authenticatorId,omitempty"`
   Data                      map[string]interface{}    `json:"data,omitempty"`
