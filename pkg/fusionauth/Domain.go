@@ -299,75 +299,6 @@ type AuthenticationTokenConfiguration struct {
 }
 
 /**
- * Models an external authenticator.
- *
- * @author Trevor Smith
- */
-type Authenticator struct {
-  AuthenticationUri         string                    `json:"authenticationUri,omitempty"`
-  BaseStructure             string                    `json:"baseStructure,omitempty"`
-  ConnectTimeout            int                       `json:"connectTimeout,omitempty"`
-  Data                      map[string]interface{}    `json:"data,omitempty"`
-  Debug                     bool                      `json:"debug,omitempty"`
-  EmailAttribute            string                    `json:"emailAttribute,omitempty"`
-  Headers                   map[string]string         `json:"headers,omitempty"`
-  HttpAuthenticationPassword string                    `json:"httpAuthenticationPassword,omitempty"`
-  HttpAuthenticationUsername string                    `json:"httpAuthenticationUsername,omitempty"`
-  Id                        string                    `json:"id,omitempty"`
-  IdentifyingAttribute      string                    `json:"identifyingAttribute,omitempty"`
-  InsertInstant             int64                     `json:"insertInstant,omitempty"`
-  LambdaConfiguration       LambdaConfiguration       `json:"lambdaConfiguration,omitempty"`
-  Name                      string                    `json:"name,omitempty"`
-  ReadTimeout               int                       `json:"readTimeout,omitempty"`
-  RequestedAttributes       []string                  `json:"requestedAttributes,omitempty"`
-  RetrieveUserUri           string                    `json:"retrieveUserUri,omitempty"`
-  SslCertificateKeyId       string                    `json:"sslCertificateKeyId,omitempty"`
-  SystemAccountDn           string                    `json:"systemAccountDn,omitempty"`
-  SystemAccountPassword     string                    `json:"systemAccountPassword,omitempty"`
-  Type                      AuthenticatorType         `json:"type,omitempty"`
-}
-
-// - Why does this implement _InternalJSONColumn, and why does this use @InternalJSONColumn?, does this have it's own table with a data column?
-type AuthenticatorPolicy struct {
-  AuthenticatorId           string                    `json:"authenticatorId,omitempty"`
-  Data                      map[string]interface{}    `json:"data,omitempty"`
-  ExecutionTrigger          ExecutionTrigger          `json:"executionTrigger,omitempty"`
-  MigrationStrategy         MigrationStrategy         `json:"migrationStrategy,omitempty"`
-  Sequence                  int                       `json:"sequence,omitempty"`
-}
-
-/**
- * @author Trevor Smith
- */
-type AuthenticatorRequest struct {
-  Authenticator             Authenticator             `json:"authenticator,omitempty"`
-}
-
-/**
- * @author Trevor Smith
- */
-type AuthenticatorResponse struct {
-  BaseHTTPResponse
-  Authenticator             Authenticator             `json:"authenticator,omitempty"`
-  Authenticators            []Authenticator           `json:"authenticators,omitempty"`
-}
-func (b *AuthenticatorResponse) SetStatus(status int) {
-  b.StatusCode = status
-}
-
-/**
- * The types of authenticators.
- *
- * @author Trevor Smith
- */
-type AuthenticatorType string
-const (
-  AuthenticatorType_Ldap                 AuthenticatorType    = "ldap"
-  AuthenticatorType_Generic              AuthenticatorType    = "generic"
-  AuthenticatorType_FusionAuth           AuthenticatorType    = "fusionAuth"
-)
-
-/**
  * Base-class for all FusionAuth events.
  *
  * @author Brian Pontarelli
@@ -529,6 +460,77 @@ const (
   ClientAuthenticationMethod_None                 ClientAuthenticationMethod = "none"
   ClientAuthenticationMethod_ClientSecretBasic    ClientAuthenticationMethod = "client_secret_basic"
   ClientAuthenticationMethod_ClientSecretPost     ClientAuthenticationMethod = "client_secret_post"
+)
+
+/**
+ * Models an external authenticator.
+ *
+ * @author Trevor Smith
+ */
+type Connector struct {
+  AuthenticationUri         string                    `json:"authenticationUri,omitempty"`
+  BaseStructure             string                    `json:"baseStructure,omitempty"`
+  ConnectTimeout            int                       `json:"connectTimeout,omitempty"`
+  Data                      map[string]interface{}    `json:"data,omitempty"`
+  Debug                     bool                      `json:"debug,omitempty"`
+  EmailAttribute            string                    `json:"emailAttribute,omitempty"`
+  Headers                   map[string]string         `json:"headers,omitempty"`
+  HttpAuthenticationPassword string                    `json:"httpAuthenticationPassword,omitempty"`
+  HttpAuthenticationUsername string                    `json:"httpAuthenticationUsername,omitempty"`
+  Id                        string                    `json:"id,omitempty"`
+  IdentifyingAttribute      string                    `json:"identifyingAttribute,omitempty"`
+  InsertInstant             int64                     `json:"insertInstant,omitempty"`
+  LambdaConfiguration       LambdaConfiguration       `json:"lambdaConfiguration,omitempty"`
+  Name                      string                    `json:"name,omitempty"`
+  ReadTimeout               int                       `json:"readTimeout,omitempty"`
+  RequestedAttributes       []string                  `json:"requestedAttributes,omitempty"`
+  RetrieveUserUri           string                    `json:"retrieveUserUri,omitempty"`
+  SslCertificateKeyId       string                    `json:"sslCertificateKeyId,omitempty"`
+  SystemAccountDn           string                    `json:"systemAccountDn,omitempty"`
+  SystemAccountPassword     string                    `json:"systemAccountPassword,omitempty"`
+  Type                      ConnectorType             `json:"type,omitempty"`
+}
+
+/**
+ * @author Trevor Smith
+ */
+type ConnectorPolicy struct {
+  ConnectorId               string                    `json:"connectorId,omitempty"`
+  Data                      map[string]interface{}    `json:"data,omitempty"`
+  ExecutionTrigger          ExecutionTrigger          `json:"executionTrigger,omitempty"`
+  MigrationStrategy         MigrationStrategy         `json:"migrationStrategy,omitempty"`
+  Sequence                  int                       `json:"sequence,omitempty"`
+}
+
+/**
+ * @author Trevor Smith
+ */
+type ConnectorRequest struct {
+  Connector                 Connector                 `json:"connector,omitempty"`
+}
+
+/**
+ * @author Trevor Smith
+ */
+type ConnectorResponse struct {
+  BaseHTTPResponse
+  Connector                 Connector                 `json:"connector,omitempty"`
+  Connectors                []Connector               `json:"connectors,omitempty"`
+}
+func (b *ConnectorResponse) SetStatus(status int) {
+  b.StatusCode = status
+}
+
+/**
+ * The types of connectors.
+ *
+ * @author Trevor Smith
+ */
+type ConnectorType string
+const (
+  ConnectorType_FusionAuth           ConnectorType        = "FusionAuth"
+  ConnectorType_Generic              ConnectorType        = "Generic"
+  ConnectorType_LDAP                 ConnectorType        = "LDAP"
 )
 
 /**
@@ -952,12 +954,16 @@ const (
   EventType_Test                 EventType            = "Test"
 )
 
-/**
- * @author Trevor Smith
- */
-type ExecutionTrigger string
+// TODO : Authenticators : Is this a trigger or just a policy?
+type ExecutionTrigger struct {
+  FilterDomains             []string                  `json:"filterDomains,omitempty"`
+  Type                      ExecutionTriggerType      `json:"type,omitempty"`
+}
+
+type ExecutionTriggerType string
 const (
-  ExecutionTrigger_Always               ExecutionTrigger     = "always"
+  ExecutionTriggerType_Always               ExecutionTriggerType = "Always"
+  ExecutionTriggerType_FilterByDomain       ExecutionTriggerType = "FilterByDomain"
 )
 
 /**
@@ -1686,11 +1692,11 @@ type LambdaConfiguration struct {
   Samlv2PopulateId          string                    `json:"samlv2PopulateId,omitempty"`
 }
 
-type ProviderLambdaConfiguration struct {
+type LambdaConfiguration struct {
   ReconcileId               string                    `json:"reconcileId,omitempty"`
 }
 
-type LambdaConfiguration struct {
+type ProviderLambdaConfiguration struct {
   ReconcileId               string                    `json:"reconcileId,omitempty"`
 }
 
@@ -1941,9 +1947,9 @@ type MetaData struct {
  */
 type MigrationStrategy string
 const (
-  MigrationStrategy_CreateShellUser      MigrationStrategy    = "createShellUser"
-  MigrationStrategy_SynchronizeUser      MigrationStrategy    = "synchronizeUser"
-  MigrationStrategy_MigrateIdentity      MigrationStrategy    = "migrateIdentity"
+  MigrationStrategy_CreateShellUser      MigrationStrategy    = "CreateShellUser"
+  MigrationStrategy_SynchronizeUser      MigrationStrategy    = "SynchronizeUser"
+  MigrationStrategy_MigrateIdentity      MigrationStrategy    = "MigrateIdentity"
 )
 
 /**
@@ -2695,8 +2701,8 @@ type Templates struct {
  * @author Daniel DeGroff
  */
 type Tenant struct {
-  AuthenticatorPolicies     []AuthenticatorPolicy     `json:"authenticatorPolicies,omitempty"`
   Configured                bool                      `json:"configured,omitempty"`
+  ConnectorPolicies         []ConnectorPolicy         `json:"connectorPolicies,omitempty"`
   Data                      map[string]interface{}    `json:"data,omitempty"`
   EmailConfiguration        EmailConfiguration        `json:"emailConfiguration,omitempty"`
   EventConfiguration        EventConfiguration        `json:"eventConfiguration,omitempty"`
@@ -2950,9 +2956,9 @@ type UIConfiguration struct {
 type User struct {
   SecureIdentity
   Active                    bool                      `json:"active,omitempty"`
-  AuthenticatorId           string                    `json:"authenticatorId,omitempty"`
   BirthDate                 string                    `json:"birthDate,omitempty"`
   CleanSpeakId              string                    `json:"cleanSpeakId,omitempty"`
+  ConnectorId               string                    `json:"connectorId,omitempty"`
   Data                      map[string]interface{}    `json:"data,omitempty"`
   Email                     string                    `json:"email,omitempty"`
   Expiry                    int64                     `json:"expiry,omitempty"`
