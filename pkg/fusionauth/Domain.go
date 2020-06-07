@@ -468,7 +468,7 @@ const (
  * @author Trevor Smith
  */
 type Connector struct {
-  AuthenticationUri         string                    `json:"authenticationUri,omitempty"`
+  AuthenticationURL         string                    `json:"authenticationURL,omitempty"`
   BaseStructure             string                    `json:"baseStructure,omitempty"`
   ConnectTimeout            int                       `json:"connectTimeout,omitempty"`
   Data                      map[string]interface{}    `json:"data,omitempty"`
@@ -484,7 +484,7 @@ type Connector struct {
   Name                      string                    `json:"name,omitempty"`
   ReadTimeout               int                       `json:"readTimeout,omitempty"`
   RequestedAttributes       []string                  `json:"requestedAttributes,omitempty"`
-  RetrieveUserUri           string                    `json:"retrieveUserUri,omitempty"`
+  RetrieveUserURL           string                    `json:"retrieveUserURL,omitempty"`
   SslCertificateKeyId       string                    `json:"sslCertificateKeyId,omitempty"`
   SystemAccountDn           string                    `json:"systemAccountDn,omitempty"`
   SystemAccountPassword     string                    `json:"systemAccountPassword,omitempty"`
