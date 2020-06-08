@@ -363,6 +363,26 @@ func (c *FusionAuthClient) CreateAuditLog(request AuditLogRequest) (*AuditLogRes
     return &resp, &errors, err
 }
 
+// CreateConnector
+// Creates a connector.  You can optionally specify an Id for the connector, if not provided one will be generated.
+//   string connectorId (Optional) The Id for the connector. If not provided a secure random UUID will be generated.
+//   ConnectorRequest request The request object that contains all of the information used to create the connector.
+func (c *FusionAuthClient) CreateConnector(connectorId string, request ConnectorRequest) (*ConnectorResponse, *Errors, error) {
+    var resp ConnectorResponse
+    var errors Errors
+
+    restClient := c.Start(&resp, &errors)
+    err := restClient.WithUri("/api/connector").
+             WithUriSegment(connectorId).
+             WithJSONBody(request).
+             WithMethod(http.MethodPost).
+             Do()
+    if restClient.ErrorRef == nil {
+      return &resp, nil, err
+    }
+    return &resp, &errors, err
+}
+
 // CreateConsent
 // Creates a user consent type. You can optionally specify an Id for the consent type, if not provided one will be generated.
 //   string consentId (Optional) The Id for the consent. If not provided a secure random UUID will be generated.
@@ -2139,6 +2159,18 @@ func (c *FusionAuthClient) RetrieveAuditLog(auditLogId int) (*AuditLogResponse, 
       return &resp, nil, err
     }
     return &resp, &errors, err
+}
+
+// RetrieveConnectors
+// Retrieves all of the connectors.
+func (c *FusionAuthClient) RetrieveConnectors() (*ConnectorResponse, error) {
+    var resp ConnectorResponse
+
+    err := c.Start(&resp, nil).
+             WithUri("/api/connector").
+             WithMethod(http.MethodGet).
+             Do()
+    return &resp, err
 }
 
 // RetrieveConsent
