@@ -969,7 +969,11 @@ type ExternalAuthenticationRequest struct {
   Password                  string                    `json:"password,omitempty"`
 }
 
-// TODO : Authenticators : This additional layer seems odd to me. THis 'attribute' of a connector is probably better suited to be an interface.
+/**
+ * Models an external connector.
+ *
+ * @author Trevor Smith
+ */
 type ExternalConnector struct {
   BaseConnector
   ConnectTimeout            int                       `json:"connectTimeout,omitempty"`
@@ -1755,7 +1759,11 @@ const (
   LambdaType_LdapReconcile        LambdaType           = "LdapReconcile"
 )
 
-// TODO : Authenticators : Naming : LDAPConnector
+/**
+ * Models an LDAP connector.
+ *
+ * @author Trevor Smith
+ */
 type LdapConnector struct {
   ExternalConnector
   BaseStructure             string                    `json:"baseStructure,omitempty"`
