@@ -298,6 +298,17 @@ type AuthenticationTokenConfiguration struct {
   Enableable
 }
 
+// Do not require a setter for 'type', it is defined by the concrete class and is not mutable
+type BaseConnector struct {
+  AuthenticationURL         string                    `json:"authenticationURL,omitempty"`
+  Data                      map[string]interface{}    `json:"data,omitempty"`
+  Id                        string                    `json:"id,omitempty"`
+  InsertInstant             int64                     `json:"insertInstant,omitempty"`
+  Name                      string                    `json:"name,omitempty"`
+  SslCertificateKeyId       string                    `json:"sslCertificateKeyId,omitempty"`
+  Type                      ConnectorType             `json:"type,omitempty"`
+}
+
 /**
  * Base-class for all FusionAuth events.
  *
@@ -463,35 +474,6 @@ const (
 )
 
 /**
- * Models an external authenticator.
- *
- * @author Trevor Smith
- */
-type Connector struct {
-  AuthenticationURL         string                    `json:"authenticationURL,omitempty"`
-  BaseStructure             string                    `json:"baseStructure,omitempty"`
-  ConnectTimeout            int                       `json:"connectTimeout,omitempty"`
-  Data                      map[string]interface{}    `json:"data,omitempty"`
-  Debug                     bool                      `json:"debug,omitempty"`
-  EmailAttribute            string                    `json:"emailAttribute,omitempty"`
-  Headers                   map[string]string         `json:"headers,omitempty"`
-  HttpAuthenticationPassword string                    `json:"httpAuthenticationPassword,omitempty"`
-  HttpAuthenticationUsername string                    `json:"httpAuthenticationUsername,omitempty"`
-  Id                        string                    `json:"id,omitempty"`
-  IdentifyingAttribute      string                    `json:"identifyingAttribute,omitempty"`
-  InsertInstant             int64                     `json:"insertInstant,omitempty"`
-  LambdaConfiguration       LambdaConfiguration       `json:"lambdaConfiguration,omitempty"`
-  Name                      string                    `json:"name,omitempty"`
-  ReadTimeout               int                       `json:"readTimeout,omitempty"`
-  RequestedAttributes       []string                  `json:"requestedAttributes,omitempty"`
-  RetrieveUserURL           string                    `json:"retrieveUserURL,omitempty"`
-  SslCertificateKeyId       string                    `json:"sslCertificateKeyId,omitempty"`
-  SystemAccountDn           string                    `json:"systemAccountDn,omitempty"`
-  SystemAccountPassword     string                    `json:"systemAccountPassword,omitempty"`
-  Type                      ConnectorType             `json:"type,omitempty"`
-}
-
-/**
  * @author Trevor Smith
  */
 type ConnectorPolicy struct {
@@ -506,7 +488,7 @@ type ConnectorPolicy struct {
  * @author Trevor Smith
  */
 type ConnectorRequest struct {
-  Connector                 Connector                 `json:"connector,omitempty"`
+  Connector                 BaseConnector             `json:"connector,omitempty"`
 }
 
 /**
@@ -514,8 +496,8 @@ type ConnectorRequest struct {
  */
 type ConnectorResponse struct {
   BaseHTTPResponse
-  Connector                 Connector                 `json:"connector,omitempty"`
-  Connectors                []Connector               `json:"connectors,omitempty"`
+  Connector                 BaseConnector             `json:"connector,omitempty"`
+  Connectors                []BaseConnector           `json:"connectors,omitempty"`
 }
 func (b *ConnectorResponse) SetStatus(status int) {
   b.StatusCode = status
@@ -988,6 +970,18 @@ type ExternalAuthenticationRequest struct {
 }
 
 /**
+ * Models an external connector.
+ *
+ * @author Trevor Smith
+ */
+type ExternalConnector struct {
+  BaseConnector
+  ConnectTimeout            int                       `json:"connectTimeout,omitempty"`
+  Debug                     bool                      `json:"debug,omitempty"`
+  ReadTimeout               int                       `json:"readTimeout,omitempty"`
+}
+
+/**
  * @author Daniel DeGroff
  */
 type ExternalIdentifierConfiguration struct {
@@ -1174,6 +1168,28 @@ type ForgotPasswordResponse struct {
 }
 func (b *ForgotPasswordResponse) SetStatus(status int) {
   b.StatusCode = status
+}
+
+/**
+ * Models the FusionAuth connector.
+ *
+ * @author Trevor Smith
+ */
+type FusionAuthConnector struct {
+  BaseConnector
+}
+
+/**
+ * Models a generic connector.
+ *
+ * @author Trevor Smith
+ */
+type GenericConnector struct {
+  ExternalConnector
+  Headers                   map[string]string         `json:"headers,omitempty"`
+  HttpAuthenticationPassword string                    `json:"httpAuthenticationPassword,omitempty"`
+  HttpAuthenticationUsername string                    `json:"httpAuthenticationUsername,omitempty"`
+  RetrieveUserURL           string                    `json:"retrieveUserURL,omitempty"`
 }
 
 /**
@@ -1742,6 +1758,22 @@ const (
   LambdaType_TwitterReconcile     LambdaType           = "TwitterReconcile"
   LambdaType_LdapReconcile        LambdaType           = "LdapReconcile"
 )
+
+/**
+ * Models an LDAP connector.
+ *
+ * @author Trevor Smith
+ */
+type LdapConnector struct {
+  ExternalConnector
+  BaseStructure             string                    `json:"baseStructure,omitempty"`
+  EmailAttribute            string                    `json:"emailAttribute,omitempty"`
+  IdentifyingAttribute      string                    `json:"identifyingAttribute,omitempty"`
+  LambdaConfiguration       LambdaConfiguration       `json:"lambdaConfiguration,omitempty"`
+  RequestedAttributes       []string                  `json:"requestedAttributes,omitempty"`
+  SystemAccountDn           string                    `json:"systemAccountDn,omitempty"`
+  SystemAccountPassword     string                    `json:"systemAccountPassword,omitempty"`
+}
 
 /**
  * A historical state of a user log event. Since events can be modified, this stores the historical state.
