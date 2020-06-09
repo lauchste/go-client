@@ -784,6 +784,24 @@ func (c *FusionAuthClient) DeleteApplicationRole(applicationId string, roleId st
     return &resp, &errors, err
 }
 
+// DeleteConnector
+// Deletes the connector for the given Id.
+//   string connectorId The Id of the connector to delete.
+func (c *FusionAuthClient) DeleteConnector(connectorId string) (*BaseHTTPResponse, *Errors, error) {
+    var resp BaseHTTPResponse
+    var errors Errors
+
+    restClient := c.Start(&resp, &errors)
+    err := restClient.WithUri("/api/connector").
+             WithUriSegment(connectorId).
+             WithMethod(http.MethodDelete).
+             Do()
+    if restClient.ErrorRef == nil {
+      return &resp, nil, err
+    }
+    return &resp, &errors, err
+}
+
 // DeleteConsent
 // Deletes the consent for the given Id.
 //   string consentId The Id of the consent to delete.
