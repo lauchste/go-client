@@ -2161,6 +2161,20 @@ func (c *FusionAuthClient) RetrieveAuditLog(auditLogId int) (*AuditLogResponse, 
     return &resp, &errors, err
 }
 
+// RetrieveConnector
+// Retrieves the connector with the given Id.
+//   string connectorId The Id of the connector.
+func (c *FusionAuthClient) RetrieveConnector(connectorId string) (*ConnectorResponse, error) {
+    var resp ConnectorResponse
+
+    err := c.Start(&resp, nil).
+             WithUri("/api/connector").
+             WithUriSegment(connectorId).
+             WithMethod(http.MethodGet).
+             Do()
+    return &resp, err
+}
+
 // RetrieveConnectors
 // Retrieves all of the connectors.
 func (c *FusionAuthClient) RetrieveConnectors() (*ConnectorResponse, error) {
@@ -3486,6 +3500,26 @@ func (c *FusionAuthClient) UpdateApplicationRole(applicationId string, roleId st
              WithUriSegment(applicationId).
              WithUriSegment("role").
              WithUriSegment(roleId).
+             WithJSONBody(request).
+             WithMethod(http.MethodPut).
+             Do()
+    if restClient.ErrorRef == nil {
+      return &resp, nil, err
+    }
+    return &resp, &errors, err
+}
+
+// UpdateConnector
+// Updates the connector with the given Id.
+//   string connectorId The Id of the connector to update.
+//   ConnectorRequest request The request object that contains all of the new connector information.
+func (c *FusionAuthClient) UpdateConnector(connectorId string, request ConnectorRequest) (*ConnectorResponse, *Errors, error) {
+    var resp ConnectorResponse
+    var errors Errors
+
+    restClient := c.Start(&resp, &errors)
+    err := restClient.WithUri("/api/connector").
+             WithUriSegment(connectorId).
              WithJSONBody(request).
              WithMethod(http.MethodPut).
              Do()
