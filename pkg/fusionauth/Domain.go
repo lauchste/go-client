@@ -1756,7 +1756,7 @@ const (
   LambdaType_GoogleReconcile      LambdaType           = "GoogleReconcile"
   LambdaType_HYPRReconcile        LambdaType           = "HYPRReconcile"
   LambdaType_TwitterReconcile     LambdaType           = "TwitterReconcile"
-  LambdaType_LdapReconcile        LambdaType           = "LdapReconcile"
+  LambdaType_LDAPConnectorReconcile LambdaType           = "LDAPConnectorReconcile"
 )
 
 /**
