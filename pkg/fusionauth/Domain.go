@@ -1764,7 +1764,7 @@ const (
  *
  * @author Trevor Smith
  */
-type LdapConnector struct {
+type LDAPConnector struct {
   ExternalConnector
   BaseStructure             string                    `json:"baseStructure,omitempty"`
   EmailAttribute            string                    `json:"emailAttribute,omitempty"`
