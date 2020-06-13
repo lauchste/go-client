@@ -1979,7 +1979,7 @@ type MetaData struct {
  */
 type MigrationStrategy string
 const (
-  MigrationStrategy_CreateShellUser      MigrationStrategy    = "CreateShellUser"
+  MigrationStrategy_ShellUser            MigrationStrategy    = "ShellUser"
   MigrationStrategy_SynchronizeUser      MigrationStrategy    = "SynchronizeUser"
   MigrationStrategy_MigrateIdentity      MigrationStrategy    = "MigrateIdentity"
 )
