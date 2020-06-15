@@ -300,12 +300,10 @@ type AuthenticationTokenConfiguration struct {
 
 // Do not require a setter for 'type', it is defined by the concrete class and is not mutable
 type BaseConnector struct {
-  AuthenticationURL         string                    `json:"authenticationURL,omitempty"`
   Data                      map[string]interface{}    `json:"data,omitempty"`
   Id                        string                    `json:"id,omitempty"`
   InsertInstant             int64                     `json:"insertInstant,omitempty"`
   Name                      string                    `json:"name,omitempty"`
-  SslCertificateKeyId       string                    `json:"sslCertificateKeyId,omitempty"`
   Type                      ConnectorType             `json:"type,omitempty"`
 }
 
@@ -970,15 +968,11 @@ type ExternalAuthenticationRequest struct {
 }
 
 /**
- * Models an external connector.
+ * Interface for all external connectors.
  *
  * @author Trevor Smith
  */
 type ExternalConnector struct {
-  BaseConnector
-  ConnectTimeout            int                       `json:"connectTimeout,omitempty"`
-  Debug                     bool                      `json:"debug,omitempty"`
-  ReadTimeout               int                       `json:"readTimeout,omitempty"`
 }
 
 /**
@@ -1185,11 +1179,16 @@ type FusionAuthConnector struct {
  * @author Trevor Smith
  */
 type GenericConnector struct {
-  ExternalConnector
+  BaseConnector
+  AuthenticationURL         string                    `json:"authenticationURL,omitempty"`
+  ConnectTimeout            int                       `json:"connectTimeout,omitempty"`
+  Debug                     bool                      `json:"debug,omitempty"`
   Headers                   map[string]string         `json:"headers,omitempty"`
   HttpAuthenticationPassword string                    `json:"httpAuthenticationPassword,omitempty"`
   HttpAuthenticationUsername string                    `json:"httpAuthenticationUsername,omitempty"`
+  ReadTimeout               int                       `json:"readTimeout,omitempty"`
   RetrieveUserURL           string                    `json:"retrieveUserURL,omitempty"`
+  SslCertificateKeyId       string                    `json:"sslCertificateKeyId,omitempty"`
 }
 
 /**
@@ -1765,11 +1764,15 @@ const (
  * @author Trevor Smith
  */
 type LDAPConnector struct {
-  ExternalConnector
+  BaseConnector
+  AuthenticationURL         string                    `json:"authenticationURL,omitempty"`
   BaseStructure             string                    `json:"baseStructure,omitempty"`
+  ConnectTimeout            int                       `json:"connectTimeout,omitempty"`
+  Debug                     bool                      `json:"debug,omitempty"`
   EmailAttribute            string                    `json:"emailAttribute,omitempty"`
   IdentifyingAttribute      string                    `json:"identifyingAttribute,omitempty"`
   LambdaConfiguration       LambdaConfiguration       `json:"lambdaConfiguration,omitempty"`
+  ReadTimeout               int                       `json:"readTimeout,omitempty"`
   RequestedAttributes       []string                  `json:"requestedAttributes,omitempty"`
   SecurityMethod            LDAPSecurityMethod        `json:"securityMethod,omitempty"`
   SystemAccountDn           string                    `json:"systemAccountDn,omitempty"`
