@@ -1771,9 +1771,17 @@ type LDAPConnector struct {
   IdentifyingAttribute      string                    `json:"identifyingAttribute,omitempty"`
   LambdaConfiguration       LambdaConfiguration       `json:"lambdaConfiguration,omitempty"`
   RequestedAttributes       []string                  `json:"requestedAttributes,omitempty"`
+  SecurityMethod            LDAPSecurityMethod        `json:"securityMethod,omitempty"`
   SystemAccountDn           string                    `json:"systemAccountDn,omitempty"`
   SystemAccountPassword     string                    `json:"systemAccountPassword,omitempty"`
 }
+
+type LDAPSecurityMethod string
+const (
+  LDAPSecurityMethod_None                 LDAPSecurityMethod   = "None"
+  LDAPSecurityMethod_LDAPS                LDAPSecurityMethod   = "LDAPS"
+  LDAPSecurityMethod_StartTLS             LDAPSecurityMethod   = "StartTLS"
+)
 
 /**
  * A historical state of a user log event. Since events can be modified, this stores the historical state.
