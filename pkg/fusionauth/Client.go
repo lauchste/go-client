@@ -1607,6 +1607,26 @@ func (c *FusionAuthClient) PatchApplicationRole(applicationId string, roleId str
     return &resp, &errors, err
 }
 
+// PatchConnector
+// Updates, via PATCH, the connector with the given Id.
+//   string connectorId The Id of the connector to update.
+//   ConnectorRequest request The request that contains just the new connector information.
+func (c *FusionAuthClient) PatchConnector(connectorId string, request map[string]interface{}) (*ConnectorResponse, *Errors, error) {
+    var resp ConnectorResponse
+    var errors Errors
+
+    restClient := c.Start(&resp, &errors)
+    err := restClient.WithUri("/api/connector").
+             WithUriSegment(connectorId).
+             WithJSONBody(request).
+             WithMethod(http.MethodPatch).
+             Do()
+    if restClient.ErrorRef == nil {
+      return &resp, nil, err
+    }
+    return &resp, &errors, err
+}
+
 // PatchConsent
 // Updates, via PATCH, the consent with the given Id.
 //   string consentId The Id of the consent to update.
