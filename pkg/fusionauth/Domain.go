@@ -301,6 +301,7 @@ type AuthenticationTokenConfiguration struct {
 // Do not require a setter for 'type', it is defined by the concrete class and is not mutable
 type BaseConnector struct {
   Data                      map[string]interface{}    `json:"data,omitempty"`
+  Debug                     bool                      `json:"debug,omitempty"`
   Id                        string                    `json:"id,omitempty"`
   InsertInstant             int64                     `json:"insertInstant,omitempty"`
   Name                      string                    `json:"name,omitempty"`
@@ -502,7 +503,7 @@ func (b *ConnectorResponse) SetStatus(status int) {
 }
 
 /**
- * The types of connectors.
+ * The types of connectors. This enum is stored as an ordinal on the <code>identities</code> table, order must be maintained.
  *
  * @author Trevor Smith
  */
@@ -968,14 +969,6 @@ type ExternalAuthenticationRequest struct {
 }
 
 /**
- * Interface for all external connectors.
- *
- * @author Trevor Smith
- */
-type ExternalConnector struct {
-}
-
-/**
  * @author Daniel DeGroff
  */
 type ExternalIdentifierConfiguration struct {
@@ -1182,7 +1175,6 @@ type GenericConnector struct {
   BaseConnector
   AuthenticationURL         string                    `json:"authenticationURL,omitempty"`
   ConnectTimeout            int                       `json:"connectTimeout,omitempty"`
-  Debug                     bool                      `json:"debug,omitempty"`
   Headers                   map[string]string         `json:"headers,omitempty"`
   HttpAuthenticationPassword string                    `json:"httpAuthenticationPassword,omitempty"`
   HttpAuthenticationUsername string                    `json:"httpAuthenticationUsername,omitempty"`
@@ -1768,7 +1760,6 @@ type LDAPConnector struct {
   AuthenticationURL         string                    `json:"authenticationURL,omitempty"`
   BaseStructure             string                    `json:"baseStructure,omitempty"`
   ConnectTimeout            int                       `json:"connectTimeout,omitempty"`
-  Debug                     bool                      `json:"debug,omitempty"`
   EmailAttribute            string                    `json:"emailAttribute,omitempty"`
   IdentifyingAttribute      string                    `json:"identifyingAttribute,omitempty"`
   LambdaConfiguration       LambdaConfiguration       `json:"lambdaConfiguration,omitempty"`
