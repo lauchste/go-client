@@ -1766,7 +1766,7 @@ type LDAPConnector struct {
   ReadTimeout               int                       `json:"readTimeout,omitempty"`
   RequestedAttributes       []string                  `json:"requestedAttributes,omitempty"`
   SecurityMethod            LDAPSecurityMethod        `json:"securityMethod,omitempty"`
-  SystemAccountDn           string                    `json:"systemAccountDN,omitempty"`
+  SystemAccountDN           string                    `json:"systemAccountDN,omitempty"`
   SystemAccountPassword     string                    `json:"systemAccountPassword,omitempty"`
 }
 
