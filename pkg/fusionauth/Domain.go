@@ -475,6 +475,15 @@ const (
 /**
  * @author Trevor Smith
  */
+type ConnectorIdentityCount struct {
+  ConnectorId               string                    `json:"connectorId,omitempty"`
+  Count                     int                       `json:"count,omitempty"`
+  TenantId                  string                    `json:"tenantId,omitempty"`
+}
+
+/**
+ * @author Trevor Smith
+ */
 type ConnectorPolicy struct {
   ConnectorId               string                    `json:"connectorId,omitempty"`
   Data                      map[string]interface{}    `json:"data,omitempty"`
