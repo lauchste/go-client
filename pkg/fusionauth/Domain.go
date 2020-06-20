@@ -934,7 +934,9 @@ const (
   EventType_Test                 EventType            = "Test"
 )
 
-// TODO : Authenticators : Is this a trigger or just a policy?
+/**
+ * @author Trevor Smith
+ */
 type ExecutionTrigger struct {
   FilterDomains             []string                  `json:"filterDomains,omitempty"`
   Type                      ExecutionTriggerType      `json:"type,omitempty"`
@@ -958,14 +960,6 @@ const (
   ExpiryUnit_MONTHS               ExpiryUnit           = "MONTHS"
   ExpiryUnit_YEARS                ExpiryUnit           = "YEARS"
 )
-
-/**
- * @author Trevor Smith
- */
-type ExternalAuthenticationRequest struct {
-  LoginId                   string                    `json:"loginId,omitempty"`
-  Password                  string                    `json:"password,omitempty"`
-}
 
 /**
  * @author Daniel DeGroff
