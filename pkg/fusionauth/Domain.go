@@ -476,10 +476,10 @@ const (
  * @author Trevor Smith
  */
 type ConnectorPolicy struct {
+  Action                    ConnectorUserAction       `json:"action,omitempty"`
   ConnectorId               string                    `json:"connectorId,omitempty"`
   Data                      map[string]interface{}    `json:"data,omitempty"`
-  ExecutionTrigger          ExecutionTrigger          `json:"executionTrigger,omitempty"`
-  MigrationStrategy         MigrationStrategy         `json:"migrationStrategy,omitempty"`
+  Domains                   []string                  `json:"domains,omitempty"`
 }
 
 /**
@@ -511,6 +511,16 @@ const (
   ConnectorType_FusionAuth           ConnectorType        = "FusionAuth"
   ConnectorType_Generic              ConnectorType        = "Generic"
   ConnectorType_LDAP                 ConnectorType        = "LDAP"
+)
+
+/**
+ * @author Trevor Smith
+ */
+type ConnectorUserAction string
+const (
+  ConnectorUserAction_Shadow               ConnectorUserAction  = "Shadow"
+  ConnectorUserAction_Synchronize          ConnectorUserAction  = "Synchronize"
+  ConnectorUserAction_Migrate              ConnectorUserAction  = "Migrate"
 )
 
 /**
@@ -932,20 +942,6 @@ const (
   EventType_UserEmailVerified    EventType            = "UserEmailVerified"
   EventType_UserPasswordBreach   EventType            = "UserPasswordBreach"
   EventType_Test                 EventType            = "Test"
-)
-
-/**
- * @author Trevor Smith
- */
-type ExecutionTrigger struct {
-  FilterDomains             []string                  `json:"filterDomains,omitempty"`
-  Type                      ExecutionTriggerType      `json:"type,omitempty"`
-}
-
-type ExecutionTriggerType string
-const (
-  ExecutionTriggerType_Always               ExecutionTriggerType = "Always"
-  ExecutionTriggerType_FilterByDomain       ExecutionTriggerType = "FilterByDomain"
 )
 
 /**
@@ -1968,16 +1964,6 @@ type MetaData struct {
   Device                    DeviceInfo                `json:"device,omitempty"`
   Scopes                    []string                  `json:"scopes,omitempty"`
 }
-
-/**
- * @author Trevor Smith
- */
-type MigrationStrategy string
-const (
-  MigrationStrategy_ShellUser            MigrationStrategy    = "ShellUser"
-  MigrationStrategy_SynchronizeUser      MigrationStrategy    = "SynchronizeUser"
-  MigrationStrategy_MigrateIdentity      MigrationStrategy    = "MigrateIdentity"
-)
 
 /**
  * @author Daniel DeGroff
