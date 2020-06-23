@@ -3345,6 +3345,7 @@ type UserLoginSuccessEvent struct {
   BaseEvent
   ApplicationId             string                    `json:"applicationId,omitempty"`
   AuthenticationType        string                    `json:"authenticationType,omitempty"`
+  ConnectorId               string                    `json:"connectorId,omitempty"`
   IdentityProviderId        string                    `json:"identityProviderId,omitempty"`
   IdentityProviderName      string                    `json:"identityProviderName,omitempty"`
   User                      User                      `json:"user,omitempty"`
