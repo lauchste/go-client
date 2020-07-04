@@ -101,6 +101,9 @@ const (
   Algorithm_HS256                Algorithm            = "HS256"
   Algorithm_HS384                Algorithm            = "HS384"
   Algorithm_HS512                Algorithm            = "HS512"
+  Algorithm_PS256                Algorithm            = "PS256"
+  Algorithm_PS384                Algorithm            = "PS384"
+  Algorithm_PS512                Algorithm            = "PS512"
   Algorithm_RS256                Algorithm            = "RS256"
   Algorithm_RS384                Algorithm            = "RS384"
   Algorithm_RS512                Algorithm            = "RS512"
@@ -1145,6 +1148,133 @@ type ForgotPasswordResponse struct {
 func (b *ForgotPasswordResponse) SetStatus(status int) {
   b.StatusCode = status
 }
+
+/**
+ * @author Daniel DeGroff
+ */
+type Form struct {
+  Data                      map[string]interface{}    `json:"data,omitempty"`
+  Id                        string                    `json:"id,omitempty"`
+  InsertInstant             int64                     `json:"insertInstant,omitempty"`
+  Name                      string                    `json:"name,omitempty"`
+  Steps                     []string                  `json:"steps,omitempty"`
+  Type                      FormType                  `json:"type,omitempty"`
+}
+
+/**
+ * @author Daniel DeGroff
+ */
+type FormControl string
+const (
+  FormControl_Checkbox             FormControl          = "Checkbox"
+  FormControl_Number               FormControl          = "Number"
+  FormControl_Password             FormControl          = "Password"
+  FormControl_Radio                FormControl          = "Radio"
+  FormControl_Select               FormControl          = "Select"
+  FormControl_TextArea             FormControl          = "TextArea"
+  FormControl_Text                 FormControl          = "Text"
+)
+
+/**
+ * @author Daniel DeGroff
+ */
+type FormDataType string
+const (
+  FormDataType_Boolean              FormDataType         = "Boolean"
+  FormDataType_Consent              FormDataType         = "Consent"
+  FormDataType_Date                 FormDataType         = "Date"
+  FormDataType_Email                FormDataType         = "Email"
+  FormDataType_Number               FormDataType         = "Number"
+  FormDataType_String               FormDataType         = "String"
+  FormDataType_TermsAndConditions   FormDataType         = "TermsAndConditions"
+)
+
+/**
+ * @author Daniel DeGroff
+ */
+type FormField struct {
+  Admin                     []FormFieldAdminPolicy    `json:"admin,omitempty"`
+  Confirm                   bool                      `json:"confirm,omitempty"`
+  Control                   FormControl               `json:"control,omitempty"`
+  Data                      map[string]interface{}    `json:"data,omitempty"`
+  Description               string                    `json:"description,omitempty"`
+  Id                        string                    `json:"id,omitempty"`
+  InsertInstant             int64                     `json:"insertInstant,omitempty"`
+  Key                       string                    `json:"key,omitempty"`
+  Name                      string                    `json:"name,omitempty"`
+  Options                   []string                  `json:"options,omitempty"`
+  Required                  bool                      `json:"required,omitempty"`
+  Type                      FormDataType              `json:"type,omitempty"`
+  Validator                 FormFieldValidator        `json:"validator,omitempty"`
+}
+
+/**
+ * @author Daniel DeGroff
+ */
+type FormFieldAdminPolicy string
+const (
+  FormFieldAdminPolicy_Edit                 FormFieldAdminPolicy = "Edit"
+  FormFieldAdminPolicy_View                 FormFieldAdminPolicy = "View"
+)
+
+/**
+ * Form field response.
+ *
+ * @author Brett Guy
+ */
+type FormFieldResponse struct {
+  BaseHTTPResponse
+  FormField                 FormField                 `json:"formField,omitempty"`
+}
+func (b *FormFieldResponse) SetStatus(status int) {
+  b.StatusCode = status
+}
+
+/**
+ * @author Daniel DeGroff
+ */
+type FormFieldValidator struct {
+  Enableable
+  Expression                string                    `json:"expression,omitempty"`
+}
+
+/**
+ * Form response.
+ *
+ * @author Daniel DeGroff
+ */
+type FormRequest struct {
+  Form                      Form                      `json:"form,omitempty"`
+}
+
+/**
+ * Form response.
+ *
+ * @author Daniel DeGroff
+ */
+type FormResponse struct {
+  BaseHTTPResponse
+  Form                      Form                      `json:"form,omitempty"`
+  Forms                     []Form                    `json:"forms,omitempty"`
+}
+func (b *FormResponse) SetStatus(status int) {
+  b.StatusCode = status
+}
+
+/**
+ * @author Daniel DeGroff
+ */
+type FormStep struct {
+  Fields                    []FormField               `json:"fields,omitempty"`
+}
+
+/**
+ * @author Daniel DeGroff
+ */
+type FormType string
+const (
+  FormType_Registration         FormType             = "Registration"
+)
 
 /**
  * Models the FusionAuth connector.
