@@ -444,6 +444,46 @@ func (c *FusionAuthClient) CreateFamily(familyId string, request FamilyRequest) 
     return &resp, &errors, err
 }
 
+// CreateForm
+// Creates a form.  You can optionally specify an Id for the form, if not provided one will be generated.
+//   string formId (Optional) The Id for the form. If not provided a secure random UUID will be generated.
+//   FormRequest request The request object that contains all of the information used to create the form.
+func (c *FusionAuthClient) CreateForm(formId string, request FormRequest) (*FormResponse, *Errors, error) {
+    var resp FormResponse
+    var errors Errors
+
+    restClient := c.Start(&resp, &errors)
+    err := restClient.WithUri("/api/form").
+             WithUriSegment(formId).
+             WithJSONBody(request).
+             WithMethod(http.MethodPost).
+             Do()
+    if restClient.ErrorRef == nil {
+      return &resp, nil, err
+    }
+    return &resp, &errors, err
+}
+
+// CreateFormField
+// Creates a form field.  You can optionally specify an Id for the form, if not provided one will be generated.
+//   string fieldId (Optional) The Id for the form field. If not provided a secure random UUID will be generated.
+//   FormFieldRequest request The request object that contains all of the information used to create the form field.
+func (c *FusionAuthClient) CreateFormField(fieldId string, request FormFieldRequest) (*FormFieldResponse, *Errors, error) {
+    var resp FormFieldResponse
+    var errors Errors
+
+    restClient := c.Start(&resp, &errors)
+    err := restClient.WithUri("/api/form/field").
+             WithUriSegment(fieldId).
+             WithJSONBody(request).
+             WithMethod(http.MethodPost).
+             Do()
+    if restClient.ErrorRef == nil {
+      return &resp, nil, err
+    }
+    return &resp, &errors, err
+}
+
 // CreateGroup
 // Creates a group. You can optionally specify an Id for the group, if not provided one will be generated.
 //   string groupId (Optional) The Id for the group. If not provided a secure random UUID will be generated.
@@ -830,6 +870,42 @@ func (c *FusionAuthClient) DeleteEmailTemplate(emailTemplateId string) (*BaseHTT
     restClient := c.Start(&resp, &errors)
     err := restClient.WithUri("/api/email/template").
              WithUriSegment(emailTemplateId).
+             WithMethod(http.MethodDelete).
+             Do()
+    if restClient.ErrorRef == nil {
+      return &resp, nil, err
+    }
+    return &resp, &errors, err
+}
+
+// DeleteForm
+// Deletes the form for the given Id.
+//   string formId The Id of the form to delete.
+func (c *FusionAuthClient) DeleteForm(formId string) (*BaseHTTPResponse, *Errors, error) {
+    var resp BaseHTTPResponse
+    var errors Errors
+
+    restClient := c.Start(&resp, &errors)
+    err := restClient.WithUri("/api/form").
+             WithUriSegment(formId).
+             WithMethod(http.MethodDelete).
+             Do()
+    if restClient.ErrorRef == nil {
+      return &resp, nil, err
+    }
+    return &resp, &errors, err
+}
+
+// DeleteFormField
+// Deletes the form field for the given Id.
+//   string fieldId The Id of the form field to delete.
+func (c *FusionAuthClient) DeleteFormField(fieldId string) (*BaseHTTPResponse, *Errors, error) {
+    var resp BaseHTTPResponse
+    var errors Errors
+
+    restClient := c.Start(&resp, &errors)
+    err := restClient.WithUri("/api/form/field").
+             WithUriSegment(fieldId).
              WithMethod(http.MethodDelete).
              Do()
     if restClient.ErrorRef == nil {
@@ -2366,6 +2442,58 @@ func (c *FusionAuthClient) RetrieveFamilyMembersByFamilyId(familyId string) (*Fa
     return &resp, err
 }
 
+// RetrieveForm
+// Retrieves the form with the given Id.
+//   string formId The Id of the form.
+func (c *FusionAuthClient) RetrieveForm(formId string) (*FormResponse, error) {
+    var resp FormResponse
+
+    err := c.Start(&resp, nil).
+             WithUri("/api/form").
+             WithUriSegment(formId).
+             WithMethod(http.MethodGet).
+             Do()
+    return &resp, err
+}
+
+// RetrieveFormField
+// Retrieves the form field with the given Id.
+//   string fieldId The Id of the form field.
+func (c *FusionAuthClient) RetrieveFormField(fieldId string) (*FormFieldResponse, error) {
+    var resp FormFieldResponse
+
+    err := c.Start(&resp, nil).
+             WithUri("/api/form/field").
+             WithUriSegment(fieldId).
+             WithMethod(http.MethodGet).
+             Do()
+    return &resp, err
+}
+
+// RetrieveFormFields
+// Retrieves all of the forms fields
+func (c *FusionAuthClient) RetrieveFormFields() (*FormFieldResponse, error) {
+    var resp FormFieldResponse
+
+    err := c.Start(&resp, nil).
+             WithUri("/api/form/field").
+             WithMethod(http.MethodGet).
+             Do()
+    return &resp, err
+}
+
+// RetrieveForms
+// Retrieves all of the forms.
+func (c *FusionAuthClient) RetrieveForms() (*FormResponse, error) {
+    var resp FormResponse
+
+    err := c.Start(&resp, nil).
+             WithUri("/api/form").
+             WithMethod(http.MethodGet).
+             Do()
+    return &resp, err
+}
+
 // RetrieveGroup
 // Retrieves the group for the given Id.
 //   string groupId The Id of the group.
@@ -3598,6 +3726,46 @@ func (c *FusionAuthClient) UpdateEmailTemplate(emailTemplateId string, request E
     restClient := c.Start(&resp, &errors)
     err := restClient.WithUri("/api/email/template").
              WithUriSegment(emailTemplateId).
+             WithJSONBody(request).
+             WithMethod(http.MethodPut).
+             Do()
+    if restClient.ErrorRef == nil {
+      return &resp, nil, err
+    }
+    return &resp, &errors, err
+}
+
+// UpdateForm
+// Updates the form with the given Id.
+//   string formId The Id of the form to update.
+//   FormRequest request The request object that contains all of the new form information.
+func (c *FusionAuthClient) UpdateForm(formId string, request FormRequest) (*FormResponse, *Errors, error) {
+    var resp FormResponse
+    var errors Errors
+
+    restClient := c.Start(&resp, &errors)
+    err := restClient.WithUri("/api/form").
+             WithUriSegment(formId).
+             WithJSONBody(request).
+             WithMethod(http.MethodPut).
+             Do()
+    if restClient.ErrorRef == nil {
+      return &resp, nil, err
+    }
+    return &resp, &errors, err
+}
+
+// UpdateFormField
+// Updates the form field with the given Id.
+//   string fieldId The Id of the form field to update.
+//   FormFieldRequest request The request object that contains all of the new form field information.
+func (c *FusionAuthClient) UpdateFormField(fieldId string, request FormFieldRequest) (*FormFieldResponse, *Errors, error) {
+    var resp FormFieldResponse
+    var errors Errors
+
+    restClient := c.Start(&resp, &errors)
+    err := restClient.WithUri("/api/form/field").
+             WithUriSegment(fieldId).
              WithJSONBody(request).
              WithMethod(http.MethodPut).
              Do()
