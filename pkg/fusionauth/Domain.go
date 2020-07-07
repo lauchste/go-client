@@ -1157,7 +1157,7 @@ type Form struct {
   Id                        string                    `json:"id,omitempty"`
   InsertInstant             int64                     `json:"insertInstant,omitempty"`
   Name                      string                    `json:"name,omitempty"`
-  Steps                     []string                  `json:"steps,omitempty"`
+  Steps                     []FormStep                `json:"steps,omitempty"`
   Type                      FormType                  `json:"type,omitempty"`
 }
 
@@ -1276,7 +1276,7 @@ func (b *FormResponse) SetStatus(status int) {
  * @author Daniel DeGroff
  */
 type FormStep struct {
-  Fields                    []FormField               `json:"fields,omitempty"`
+  Fields                    []string                  `json:"fields,omitempty"`
 }
 
 /**
