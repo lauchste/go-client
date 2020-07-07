@@ -1186,7 +1186,6 @@ const (
   FormDataType_Email                FormDataType         = "Email"
   FormDataType_Number               FormDataType         = "Number"
   FormDataType_String               FormDataType         = "String"
-  FormDataType_TermsAndConditions   FormDataType         = "TermsAndConditions"
 )
 
 /**
@@ -1195,6 +1194,7 @@ const (
 type FormField struct {
   Admin                     []FormFieldAdminPolicy    `json:"admin,omitempty"`
   Confirm                   bool                      `json:"confirm,omitempty"`
+  ConsentId                 string                    `json:"consentId,omitempty"`
   Control                   FormControl               `json:"control,omitempty"`
   Data                      map[string]interface{}    `json:"data,omitempty"`
   Description               string                    `json:"description,omitempty"`
@@ -1218,13 +1218,24 @@ const (
 )
 
 /**
+ * The FormField API request object.
+ *
+ * @author Brett Guy
+ */
+type FormFieldRequest struct {
+  Field                     FormField                 `json:"field,omitempty"`
+  Fields                    []FormField               `json:"fields,omitempty"`
+}
+
+/**
  * Form field response.
  *
  * @author Brett Guy
  */
 type FormFieldResponse struct {
   BaseHTTPResponse
-  FormField                 FormField                 `json:"formField,omitempty"`
+  Field                     FormField                 `json:"field,omitempty"`
+  Fields                    []FormField               `json:"fields,omitempty"`
 }
 func (b *FormFieldResponse) SetStatus(status int) {
   b.StatusCode = status
@@ -1762,6 +1773,9 @@ const (
   KeyAlgorithm_HS256                KeyAlgorithm         = "HS256"
   KeyAlgorithm_HS384                KeyAlgorithm         = "HS384"
   KeyAlgorithm_HS512                KeyAlgorithm         = "HS512"
+  KeyAlgorithm_PS256                KeyAlgorithm         = "PS256"
+  KeyAlgorithm_PS384                KeyAlgorithm         = "PS384"
+  KeyAlgorithm_PS512                KeyAlgorithm         = "PS512"
   KeyAlgorithm_RS256                KeyAlgorithm         = "RS256"
   KeyAlgorithm_RS384                KeyAlgorithm         = "RS384"
   KeyAlgorithm_RS512                KeyAlgorithm         = "RS512"
