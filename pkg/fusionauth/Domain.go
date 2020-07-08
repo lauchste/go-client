@@ -610,6 +610,11 @@ type Count struct {
   Interval                  int                       `json:"interval,omitempty"`
 }
 
+type CustomRegistration struct {
+  Enableable
+  FormId                    string                    `json:"formId,omitempty"`
+}
+
 /**
  * Response for the daily active user report.
  *
@@ -2540,6 +2545,7 @@ type RegistrationConfiguration struct {
   Enableable
   BirthDate                 Requirable                `json:"birthDate,omitempty"`
   ConfirmPassword           bool                      `json:"confirmPassword,omitempty"`
+  Custom                    CustomRegistration        `json:"custom,omitempty"`
   FirstName                 Requirable                `json:"firstName,omitempty"`
   FullName                  Requirable                `json:"fullName,omitempty"`
   LastName                  Requirable                `json:"lastName,omitempty"`
