@@ -1171,13 +1171,13 @@ type Form struct {
  */
 type FormControl string
 const (
-  FormControl_Checkbox             FormControl          = "Checkbox"
-  FormControl_Number               FormControl          = "Number"
-  FormControl_Password             FormControl          = "Password"
-  FormControl_Radio                FormControl          = "Radio"
-  FormControl_Select               FormControl          = "Select"
-  FormControl_TextArea             FormControl          = "TextArea"
-  FormControl_Text                 FormControl          = "Text"
+  FormControl_Checkbox             FormControl          = "checkbox"
+  FormControl_Number               FormControl          = "number"
+  FormControl_Password             FormControl          = "password"
+  FormControl_Radio                FormControl          = "radio"
+  FormControl_Select               FormControl          = "select"
+  FormControl_Textarea             FormControl          = "textarea"
+  FormControl_Text                 FormControl          = "text"
 )
 
 /**
@@ -1185,12 +1185,12 @@ const (
  */
 type FormDataType string
 const (
-  FormDataType_Boolean              FormDataType         = "Boolean"
-  FormDataType_Consent              FormDataType         = "Consent"
-  FormDataType_Date                 FormDataType         = "Date"
-  FormDataType_Email                FormDataType         = "Email"
-  FormDataType_Number               FormDataType         = "Number"
-  FormDataType_String               FormDataType         = "String"
+  FormDataType_Bool                 FormDataType         = "bool"
+  FormDataType_Consent              FormDataType         = "consent"
+  FormDataType_Date                 FormDataType         = "date"
+  FormDataType_Email                FormDataType         = "email"
+  FormDataType_Number               FormDataType         = "number"
+  FormDataType_String               FormDataType         = "string"
 )
 
 /**
@@ -2545,13 +2545,14 @@ type RegistrationConfiguration struct {
   Enableable
   BirthDate                 Requirable                `json:"birthDate,omitempty"`
   ConfirmPassword           bool                      `json:"confirmPassword,omitempty"`
-  Custom                    CustomRegistration        `json:"custom,omitempty"`
   FirstName                 Requirable                `json:"firstName,omitempty"`
+  FormId                    string                    `json:"formId,omitempty"`
   FullName                  Requirable                `json:"fullName,omitempty"`
   LastName                  Requirable                `json:"lastName,omitempty"`
   LoginIdType               LoginIdType               `json:"loginIdType,omitempty"`
   MiddleName                Requirable                `json:"middleName,omitempty"`
   MobilePhone               Requirable                `json:"mobilePhone,omitempty"`
+  Type                      RegistrationType          `json:"type,omitempty"`
 }
 
 /**
@@ -2597,6 +2598,12 @@ type RegistrationResponse struct {
 func (b *RegistrationResponse) SetStatus(status int) {
   b.StatusCode = status
 }
+
+type RegistrationType string
+const (
+  RegistrationType_Basic                RegistrationType     = "basic"
+  RegistrationType_Advanced             RegistrationType     = "advanced"
+)
 
 /**
  * @author Daniel DeGroff
