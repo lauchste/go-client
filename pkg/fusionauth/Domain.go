@@ -1289,7 +1289,7 @@ type FormStep struct {
  */
 type FormType string
 const (
-  FormType_Registration         FormType             = "Registration"
+  FormType_Registration         FormType             = "registration"
 )
 
 /**
