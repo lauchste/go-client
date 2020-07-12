@@ -143,8 +143,10 @@ type Application struct {
   CleanSpeakConfiguration   CleanSpeakConfiguration   `json:"cleanSpeakConfiguration,omitempty"`
   Data                      map[string]interface{}    `json:"data,omitempty"`
   Id                        string                    `json:"id,omitempty"`
+  InsertInstant             int64                     `json:"insertInstant,omitempty"`
   JwtConfiguration          JWTConfiguration          `json:"jwtConfiguration,omitempty"`
   LambdaConfiguration       LambdaConfiguration       `json:"lambdaConfiguration,omitempty"`
+  LastUpdateInstant         int64                     `json:"lastUpdateInstant,omitempty"`
   LoginConfiguration        LoginConfiguration        `json:"loginConfiguration,omitempty"`
   Name                      string                    `json:"name,omitempty"`
   OauthConfiguration        OAuth2Configuration       `json:"oauthConfiguration,omitempty"`
@@ -201,8 +203,10 @@ func (b *ApplicationResponse) SetStatus(status int) {
 type ApplicationRole struct {
   Description               string                    `json:"description,omitempty"`
   Id                        string                    `json:"id,omitempty"`
+  InsertInstant             int64                     `json:"insertInstant,omitempty"`
   IsDefault                 bool                      `json:"isDefault,omitempty"`
   IsSuperRole               bool                      `json:"isSuperRole,omitempty"`
+  LastUpdateInstant         int64                     `json:"lastUpdateInstant,omitempty"`
   Name                      string                    `json:"name,omitempty"`
 }
 
@@ -307,6 +311,7 @@ type BaseConnector struct {
   Debug                     bool                      `json:"debug,omitempty"`
   Id                        string                    `json:"id,omitempty"`
   InsertInstant             int64                     `json:"insertInstant,omitempty"`
+  LastUpdateInstant         int64                     `json:"lastUpdateInstant,omitempty"`
   Name                      string                    `json:"name,omitempty"`
   Type                      ConnectorType             `json:"type,omitempty"`
 }
@@ -337,7 +342,9 @@ type BaseIdentityProvider struct {
   Data                      map[string]interface{}    `json:"data,omitempty"`
   Debug                     bool                      `json:"debug,omitempty"`
   Id                        string                    `json:"id,omitempty"`
+  InsertInstant             int64                     `json:"insertInstant,omitempty"`
   LambdaConfiguration       ProviderLambdaConfiguration `json:"lambdaConfiguration,omitempty"`
+  LastUpdateInstant         int64                     `json:"lastUpdateInstant,omitempty"`
   Name                      string                    `json:"name,omitempty"`
   Type                      IdentityProviderType      `json:"type,omitempty"`
 }
@@ -538,6 +545,8 @@ type Consent struct {
   DefaultMinimumAgeForSelfConsent int                       `json:"defaultMinimumAgeForSelfConsent,omitempty"`
   EmailPlus                 EmailPlus                 `json:"emailPlus,omitempty"`
   Id                        string                    `json:"id,omitempty"`
+  InsertInstant             int64                     `json:"insertInstant,omitempty"`
+  LastUpdateInstant         int64                     `json:"lastUpdateInstant,omitempty"`
   MultipleValuesAllowed     bool                      `json:"multipleValuesAllowed,omitempty"`
   Name                      string                    `json:"name,omitempty"`
   Values                    []string                  `json:"values,omitempty"`
@@ -764,6 +773,8 @@ type EmailTemplate struct {
   DefaultTextTemplate       string                    `json:"defaultTextTemplate,omitempty"`
   FromEmail                 string                    `json:"fromEmail,omitempty"`
   Id                        string                    `json:"id,omitempty"`
+  InsertInstant             int64                     `json:"insertInstant,omitempty"`
+  LastUpdateInstant         int64                     `json:"lastUpdateInstant,omitempty"`
   LocalizedFromNames        map[string]string         `json:"localizedFromNames,omitempty"`
   LocalizedHtmlTemplates    map[string]string         `json:"localizedHtmlTemplates,omitempty"`
   LocalizedSubjects         map[string]string         `json:"localizedSubjects,omitempty"`
@@ -1056,6 +1067,8 @@ type FailedAuthenticationConfiguration struct {
  */
 type Family struct {
   Id                        string                    `json:"id,omitempty"`
+  InsertInstant             int64                     `json:"insertInstant,omitempty"`
+  LastUpdateInstant         int64                     `json:"lastUpdateInstant,omitempty"`
   Members                   []FamilyMember            `json:"members,omitempty"`
 }
 
@@ -1161,6 +1174,7 @@ type Form struct {
   Data                      map[string]interface{}    `json:"data,omitempty"`
   Id                        string                    `json:"id,omitempty"`
   InsertInstant             int64                     `json:"insertInstant,omitempty"`
+  LastUpdateInstant         int64                     `json:"lastUpdateInstant,omitempty"`
   Name                      string                    `json:"name,omitempty"`
   Steps                     []FormStep                `json:"steps,omitempty"`
   Type                      FormType                  `json:"type,omitempty"`
@@ -1206,6 +1220,7 @@ type FormField struct {
   Id                        string                    `json:"id,omitempty"`
   InsertInstant             int64                     `json:"insertInstant,omitempty"`
   Key                       string                    `json:"key,omitempty"`
+  LastUpdateInstant         int64                     `json:"lastUpdateInstant,omitempty"`
   Name                      string                    `json:"name,omitempty"`
   Options                   []string                  `json:"options,omitempty"`
   Required                  bool                      `json:"required,omitempty"`
@@ -1368,6 +1383,8 @@ const (
 type Group struct {
   Data                      map[string]interface{}    `json:"data,omitempty"`
   Id                        string                    `json:"id,omitempty"`
+  InsertInstant             int64                     `json:"insertInstant,omitempty"`
+  LastUpdateInstant         int64                     `json:"lastUpdateInstant,omitempty"`
   Name                      string                    `json:"name,omitempty"`
   Roles                     map[string][]ApplicationRole `json:"roles,omitempty"`
   TenantId                  string                    `json:"tenantId,omitempty"`
@@ -1762,6 +1779,7 @@ type Key struct {
   InsertInstant             int64                     `json:"insertInstant,omitempty"`
   Issuer                    string                    `json:"issuer,omitempty"`
   Kid                       string                    `json:"kid,omitempty"`
+  LastUpdateInstant         int64                     `json:"lastUpdateInstant,omitempty"`
   Length                    int                       `json:"length,omitempty"`
   Name                      string                    `json:"name,omitempty"`
   PrivateKey                string                    `json:"privateKey,omitempty"`
@@ -1827,6 +1845,7 @@ type Lambda struct {
   Debug                     bool                      `json:"debug,omitempty"`
   Id                        string                    `json:"id,omitempty"`
   InsertInstant             int64                     `json:"insertInstant,omitempty"`
+  LastUpdateInstant         int64                     `json:"lastUpdateInstant,omitempty"`
   Name                      string                    `json:"name,omitempty"`
   Type                      LambdaType                `json:"type,omitempty"`
 }
@@ -2806,6 +2825,8 @@ type SystemConfiguration struct {
   CorsConfiguration         CORSConfiguration         `json:"corsConfiguration,omitempty"`
   Data                      map[string]interface{}    `json:"data,omitempty"`
   EventLogConfiguration     EventLogConfiguration     `json:"eventLogConfiguration,omitempty"`
+  InsertInstant             int64                     `json:"insertInstant,omitempty"`
+  LastUpdateInstant         int64                     `json:"lastUpdateInstant,omitempty"`
   LoginRecordConfiguration  LoginRecordConfiguration  `json:"loginRecordConfiguration,omitempty"`
   ReportTimezone            string                    `json:"reportTimezone,omitempty"`
   UiConfiguration           UIConfiguration           `json:"uiConfiguration,omitempty"`
@@ -2881,8 +2902,10 @@ type Tenant struct {
   FamilyConfiguration       FamilyConfiguration       `json:"familyConfiguration,omitempty"`
   HttpSessionMaxInactiveInterval int                       `json:"httpSessionMaxInactiveInterval,omitempty"`
   Id                        string                    `json:"id,omitempty"`
+  InsertInstant             int64                     `json:"insertInstant,omitempty"`
   Issuer                    string                    `json:"issuer,omitempty"`
   JwtConfiguration          JWTConfiguration          `json:"jwtConfiguration,omitempty"`
+  LastUpdateInstant         int64                     `json:"lastUpdateInstant,omitempty"`
   LogoutURL                 string                    `json:"logoutURL,omitempty"`
   MaximumPasswordAge        MaximumPasswordAge        `json:"maximumPasswordAge,omitempty"`
   MinimumPasswordAge        MinimumPasswordAge        `json:"minimumPasswordAge,omitempty"`
@@ -3138,6 +3161,7 @@ type User struct {
   InsertInstant             int64                     `json:"insertInstant,omitempty"`
   LastLoginInstant          int64                     `json:"lastLoginInstant,omitempty"`
   LastName                  string                    `json:"lastName,omitempty"`
+  LastUpdateInstant         int64                     `json:"lastUpdateInstant,omitempty"`
   Memberships               []GroupMember             `json:"memberships,omitempty"`
   MiddleName                string                    `json:"middleName,omitempty"`
   MobilePhone               string                    `json:"mobilePhone,omitempty"`
@@ -3164,6 +3188,8 @@ type UserAction struct {
   EndEmailTemplateId        string                    `json:"endEmailTemplateId,omitempty"`
   Id                        string                    `json:"id,omitempty"`
   IncludeEmailInEventJSON   bool                      `json:"includeEmailInEventJSON,omitempty"`
+  InsertInstant             int64                     `json:"insertInstant,omitempty"`
+  LastUpdateInstant         int64                     `json:"lastUpdateInstant,omitempty"`
   LocalizedNames            map[string]string         `json:"localizedNames,omitempty"`
   ModifyEmailTemplateId     string                    `json:"modifyEmailTemplateId,omitempty"`
   Name                      string                    `json:"name,omitempty"`
@@ -3214,12 +3240,12 @@ type UserActionLog struct {
   ActionerUserId            string                    `json:"actionerUserId,omitempty"`
   ApplicationIds            []string                  `json:"applicationIds,omitempty"`
   Comment                   string                    `json:"comment,omitempty"`
-  CreateInstant             int64                     `json:"createInstant,omitempty"`
   EmailUserOnEnd            bool                      `json:"emailUserOnEnd,omitempty"`
   EndEventSent              bool                      `json:"endEventSent,omitempty"`
   Expiry                    int64                     `json:"expiry,omitempty"`
   History                   LogHistory                `json:"history,omitempty"`
   Id                        string                    `json:"id,omitempty"`
+  InsertInstant             int64                     `json:"insertInstant,omitempty"`
   LocalizedName             string                    `json:"localizedName,omitempty"`
   LocalizedOption           string                    `json:"localizedOption,omitempty"`
   LocalizedReason           string                    `json:"localizedReason,omitempty"`
@@ -3262,6 +3288,8 @@ const (
 type UserActionReason struct {
   Code                      string                    `json:"code,omitempty"`
   Id                        string                    `json:"id,omitempty"`
+  InsertInstant             int64                     `json:"insertInstant,omitempty"`
+  LastUpdateInstant         int64                     `json:"lastUpdateInstant,omitempty"`
   LocalizedTexts            map[string]string         `json:"localizedTexts,omitempty"`
   Text                      string                    `json:"text,omitempty"`
 }
@@ -3330,8 +3358,8 @@ type UserBulkCreateEvent struct {
 type UserComment struct {
   Comment                   string                    `json:"comment,omitempty"`
   CommenterId               string                    `json:"commenterId,omitempty"`
-  CreateInstant             int64                     `json:"createInstant,omitempty"`
   Id                        string                    `json:"id,omitempty"`
+  InsertInstant             int64                     `json:"insertInstant,omitempty"`
   UserId                    string                    `json:"userId,omitempty"`
 }
 
@@ -3532,6 +3560,7 @@ type UserRegistration struct {
   Id                        string                    `json:"id,omitempty"`
   InsertInstant             int64                     `json:"insertInstant,omitempty"`
   LastLoginInstant          int64                     `json:"lastLoginInstant,omitempty"`
+  LastUpdateInstant         int64                     `json:"lastUpdateInstant,omitempty"`
   PreferredLanguages        []string                  `json:"preferredLanguages,omitempty"`
   Roles                     []string                  `json:"roles,omitempty"`
   Timezone                  string                    `json:"timezone,omitempty"`
@@ -3697,6 +3726,8 @@ type Webhook struct {
   HttpAuthenticationPassword string                    `json:"httpAuthenticationPassword,omitempty"`
   HttpAuthenticationUsername string                    `json:"httpAuthenticationUsername,omitempty"`
   Id                        string                    `json:"id,omitempty"`
+  InsertInstant             int64                     `json:"insertInstant,omitempty"`
+  LastUpdateInstant         int64                     `json:"lastUpdateInstant,omitempty"`
   ReadTimeout               int                       `json:"readTimeout,omitempty"`
   SslCertificate            string                    `json:"sslCertificate,omitempty"`
   Url                       string                    `json:"url,omitempty"`
