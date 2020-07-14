@@ -1105,6 +1105,7 @@ type FamilyEmailRequest struct {
 type FamilyMember struct {
   Data                      map[string]interface{}    `json:"data,omitempty"`
   InsertInstant             int64                     `json:"insertInstant,omitempty"`
+  LastUpdateInstant         int64                     `json:"lastUpdateInstant,omitempty"`
   Owner                     bool                      `json:"owner,omitempty"`
   Role                      FamilyRole                `json:"role,omitempty"`
   UserId                    string                    `json:"userId,omitempty"`
