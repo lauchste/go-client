@@ -101,9 +101,6 @@ const (
   Algorithm_HS256                Algorithm            = "HS256"
   Algorithm_HS384                Algorithm            = "HS384"
   Algorithm_HS512                Algorithm            = "HS512"
-  Algorithm_PS256                Algorithm            = "PS256"
-  Algorithm_PS384                Algorithm            = "PS384"
-  Algorithm_PS512                Algorithm            = "PS512"
   Algorithm_RS256                Algorithm            = "RS256"
   Algorithm_RS384                Algorithm            = "RS384"
   Algorithm_RS512                Algorithm            = "RS512"
@@ -2766,14 +2763,21 @@ const (
 type SecureIdentity struct {
   BreachedPasswordLastCheckedInstant int64                     `json:"breachedPasswordLastCheckedInstant,omitempty"`
   BreachedPasswordStatus    BreachedPasswordStatus    `json:"breachedPasswordStatus,omitempty"`
+  ConnectorId               string                    `json:"connectorId,omitempty"`
   EncryptionScheme          string                    `json:"encryptionScheme,omitempty"`
   Factor                    int                       `json:"factor,omitempty"`
   Id                        string                    `json:"id,omitempty"`
+  LastLoginInstant          int64                     `json:"lastLoginInstant,omitempty"`
   Password                  string                    `json:"password,omitempty"`
   PasswordChangeReason      ChangePasswordReason      `json:"passwordChangeReason,omitempty"`
   PasswordChangeRequired    bool                      `json:"passwordChangeRequired,omitempty"`
   PasswordLastUpdateInstant int64                     `json:"passwordLastUpdateInstant,omitempty"`
   Salt                      string                    `json:"salt,omitempty"`
+  TwoFactorDelivery         TwoFactorDelivery         `json:"twoFactorDelivery,omitempty"`
+  TwoFactorEnabled          bool                      `json:"twoFactorEnabled,omitempty"`
+  TwoFactorSecret           string                    `json:"twoFactorSecret,omitempty"`
+  Username                  string                    `json:"username,omitempty"`
+  UsernameStatus            ContentStatus             `json:"usernameStatus,omitempty"`
   Verified                  bool                      `json:"verified,omitempty"`
 }
 
@@ -3152,7 +3156,6 @@ type User struct {
   Active                    bool                      `json:"active,omitempty"`
   BirthDate                 string                    `json:"birthDate,omitempty"`
   CleanSpeakId              string                    `json:"cleanSpeakId,omitempty"`
-  ConnectorId               string                    `json:"connectorId,omitempty"`
   Data                      map[string]interface{}    `json:"data,omitempty"`
   Email                     string                    `json:"email,omitempty"`
   Expiry                    int64                     `json:"expiry,omitempty"`
@@ -3160,7 +3163,6 @@ type User struct {
   FullName                  string                    `json:"fullName,omitempty"`
   ImageUrl                  string                    `json:"imageUrl,omitempty"`
   InsertInstant             int64                     `json:"insertInstant,omitempty"`
-  LastLoginInstant          int64                     `json:"lastLoginInstant,omitempty"`
   LastName                  string                    `json:"lastName,omitempty"`
   LastUpdateInstant         int64                     `json:"lastUpdateInstant,omitempty"`
   Memberships               []GroupMember             `json:"memberships,omitempty"`
@@ -3171,11 +3173,6 @@ type User struct {
   Registrations             []UserRegistration        `json:"registrations,omitempty"`
   TenantId                  string                    `json:"tenantId,omitempty"`
   Timezone                  string                    `json:"timezone,omitempty"`
-  TwoFactorDelivery         TwoFactorDelivery         `json:"twoFactorDelivery,omitempty"`
-  TwoFactorEnabled          bool                      `json:"twoFactorEnabled,omitempty"`
-  TwoFactorSecret           string                    `json:"twoFactorSecret,omitempty"`
-  Username                  string                    `json:"username,omitempty"`
-  UsernameStatus            ContentStatus             `json:"usernameStatus,omitempty"`
 }
 
 /**
