@@ -1914,9 +1914,9 @@ type LDAPConnectorConfiguration struct {
   AuthenticationURL         string                    `json:"authenticationURL,omitempty"`
   BaseStructure             string                    `json:"baseStructure,omitempty"`
   ConnectTimeout            int                       `json:"connectTimeout,omitempty"`
-  loginIdAttribute            string                    `json:"loginIdAttribute,omitempty"`
   IdentifyingAttribute      string                    `json:"identifyingAttribute,omitempty"`
   LambdaConfiguration       LambdaConfiguration       `json:"lambdaConfiguration,omitempty"`
+  LoginIdAttribute          string                    `json:"loginIdAttribute,omitempty"`
   ReadTimeout               int                       `json:"readTimeout,omitempty"`
   RequestedAttributes       []string                  `json:"requestedAttributes,omitempty"`
   SecurityMethod            LDAPSecurityMethod        `json:"securityMethod,omitempty"`
