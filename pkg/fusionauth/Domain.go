@@ -306,7 +306,7 @@ type AuthenticationTokenConfiguration struct {
 }
 
 // Do not require a setter for 'type', it is defined by the concrete class and is not mutable
-type BaseConnector struct {
+type BaseConnectorConfiguration struct {
   Data                      map[string]interface{}    `json:"data,omitempty"`
   Debug                     bool                      `json:"debug,omitempty"`
   Id                        string                    `json:"id,omitempty"`
@@ -496,7 +496,7 @@ type ConnectorPolicy struct {
  * @author Trevor Smith
  */
 type ConnectorRequest struct {
-  Connector                 BaseConnector             `json:"connector,omitempty"`
+  Connector                 BaseConnectorConfiguration `json:"connector,omitempty"`
 }
 
 /**
@@ -504,8 +504,8 @@ type ConnectorRequest struct {
  */
 type ConnectorResponse struct {
   BaseHTTPResponse
-  Connector                 BaseConnector             `json:"connector,omitempty"`
-  Connectors                []BaseConnector           `json:"connectors,omitempty"`
+  Connector                 BaseConnectorConfiguration `json:"connector,omitempty"`
+  Connectors                []BaseConnectorConfiguration `json:"connectors,omitempty"`
 }
 func (b *ConnectorResponse) SetStatus(status int) {
   b.StatusCode = status
@@ -1212,7 +1212,6 @@ const (
  * @author Daniel DeGroff
  */
 type FormField struct {
-  Admin                     []FormFieldAdminPolicy    `json:"admin,omitempty"`
   Confirm                   bool                      `json:"confirm,omitempty"`
   ConsentId                 string                    `json:"consentId,omitempty"`
   Control                   FormControl               `json:"control,omitempty"`
@@ -1313,8 +1312,8 @@ const (
  *
  * @author Trevor Smith
  */
-type FusionAuthConnector struct {
-  BaseConnector
+type FusionAuthConnectorConfiguration struct {
+  BaseConnectorConfiguration
 }
 
 /**
@@ -1322,8 +1321,8 @@ type FusionAuthConnector struct {
  *
  * @author Trevor Smith
  */
-type GenericConnector struct {
-  BaseConnector
+type GenericConnectorConfiguration struct {
+  BaseConnectorConfiguration
   AuthenticationURL         string                    `json:"authenticationURL,omitempty"`
   ConnectTimeout            int                       `json:"connectTimeout,omitempty"`
   Headers                   map[string]string         `json:"headers,omitempty"`
@@ -1913,8 +1912,8 @@ const (
  *
  * @author Trevor Smith
  */
-type LDAPConnector struct {
-  BaseConnector
+type LDAPConnectorConfiguration struct {
+  BaseConnectorConfiguration
   AuthenticationURL         string                    `json:"authenticationURL,omitempty"`
   BaseStructure             string                    `json:"baseStructure,omitempty"`
   ConnectTimeout            int                       `json:"connectTimeout,omitempty"`
