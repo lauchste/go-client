@@ -483,10 +483,10 @@ const (
  * @author Trevor Smith
  */
 type ConnectorPolicy struct {
-  Action                    ConnectorUserAction       `json:"action,omitempty"`
   ConnectorId               string                    `json:"connectorId,omitempty"`
   Data                      map[string]interface{}    `json:"data,omitempty"`
   Domains                   []string                  `json:"domains,omitempty"`
+  Migrate                   bool                      `json:"migrate,omitempty"`
 }
 
 /**
@@ -518,16 +518,6 @@ const (
   ConnectorType_FusionAuth           ConnectorType        = "FusionAuth"
   ConnectorType_Generic              ConnectorType        = "Generic"
   ConnectorType_LDAP                 ConnectorType        = "LDAP"
-)
-
-/**
- * @author Trevor Smith
- */
-type ConnectorUserAction string
-const (
-  ConnectorUserAction_Shadow               ConnectorUserAction  = "Shadow"
-  ConnectorUserAction_Synchronize          ConnectorUserAction  = "Synchronize"
-  ConnectorUserAction_Migrate              ConnectorUserAction  = "Migrate"
 )
 
 /**
@@ -1326,7 +1316,6 @@ type GenericConnectorConfiguration struct {
   HttpAuthenticationPassword string                    `json:"httpAuthenticationPassword,omitempty"`
   HttpAuthenticationUsername string                    `json:"httpAuthenticationUsername,omitempty"`
   ReadTimeout               int                       `json:"readTimeout,omitempty"`
-  RetrieveUserURL           string                    `json:"retrieveUserURL,omitempty"`
   SslCertificateKeyId       string                    `json:"sslCertificateKeyId,omitempty"`
 }
 
