@@ -385,6 +385,19 @@ type BaseLoginRequest struct {
 }
 
 /**
+ * @author Brett Guy
+ */
+type BaseMessengerConfiguration struct {
+  Data                             map[string]interface{}             `json:"data,omitempty"`
+  Debug                            bool                               `json:"debug"`
+  Id                               string                             `json:"id,omitempty"`
+  InsertInstant                    int64                              `json:"insertInstant,omitempty"`
+  LastUpdateInstant                int64                              `json:"lastUpdateInstant,omitempty"`
+  Name                             string                             `json:"name,omitempty"`
+  Type                             MessengerType                      `json:"type,omitempty"`
+}
+
+/**
  * @author Brian Pontarelli
  */
 type BaseSearchCriteria struct {
@@ -751,6 +764,20 @@ type EmailConfiguration struct {
   VerificationEmailTemplateId      string                             `json:"verificationEmailTemplateId,omitempty"`
   VerifyEmail                      bool                               `json:"verifyEmail"`
   VerifyEmailWhenChanged           bool                               `json:"verifyEmailWhenChanged"`
+}
+
+/**
+ * @author Brett Guy
+ */
+type EmailMessengerConfiguration struct {
+  BaseMessengerConfiguration
+  DefaultFromEmail                 string                             `json:"defaultFromEmail,omitempty"`
+  DefaultFromName                  string                             `json:"defaultFromName,omitempty"`
+  Host                             string                             `json:"host,omitempty"`
+  Password                         string                             `json:"password,omitempty"`
+  Port                             int                                `json:"port,omitempty"`
+  Security                         EmailSecurityType                  `json:"security,omitempty"`
+  Username                         string                             `json:"username,omitempty"`
 }
 
 type EmailPlus struct {
@@ -2148,6 +2175,36 @@ func (b *MemberResponse) SetStatus(status int) {
   b.StatusCode = status
 }
 
+/**
+ * @author Brett Guy
+ */
+type MessengerRequest struct {
+  Messenger                        BaseMessengerConfiguration         `json:"messenger,omitempty"`
+}
+
+/**
+ * @author Brett Guy
+ */
+type MessengerResponse struct {
+  BaseHTTPResponse
+  Messenger                        BaseMessengerConfiguration         `json:"messenger,omitempty"`
+  Messengers                       []BaseMessengerConfiguration       `json:"messengers,omitempty"`
+}
+func (b *MessengerResponse) SetStatus(status int) {
+  b.StatusCode = status
+}
+
+/**
+ * @author Brett Guy
+ */
+type MessengerType string
+const (
+  MessengerType_Generic                          MessengerType                      = "Generic"
+  MessengerType_REST                             MessengerType                      = "REST"
+  MessengerType_Twilio                           MessengerType                      = "Twilio"
+  MessengerType_Email                            MessengerType                      = "Email"
+)
+
 type MetaData struct {
   Device                           DeviceInfo                         `json:"device,omitempty"`
   Scopes                           []string                           `json:"scopes,omitempty"`
@@ -3130,6 +3187,18 @@ const (
 type TwilioConfiguration struct {
   Enableable
   AccountSID                       string                             `json:"accountSID,omitempty"`
+  AuthToken                        string                             `json:"authToken,omitempty"`
+  FromPhoneNumber                  string                             `json:"fromPhoneNumber,omitempty"`
+  MessagingServiceSid              string                             `json:"messagingServiceSid,omitempty"`
+  Url                              string                             `json:"url,omitempty"`
+}
+
+/**
+ * @author Brett Guy
+ */
+type TwilioMessengerConfiguration struct {
+  BaseMessengerConfiguration
+  AccountSid                       string                             `json:"accountSid,omitempty"`
   AuthToken                        string                             `json:"authToken,omitempty"`
   FromPhoneNumber                  string                             `json:"fromPhoneNumber,omitempty"`
   MessagingServiceSid              string                             `json:"messagingServiceSid,omitempty"`

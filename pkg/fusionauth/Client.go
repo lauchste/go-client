@@ -542,6 +542,26 @@ func (c *FusionAuthClient) CreateLambda(lambdaId string, request LambdaRequest) 
     return &resp, &errors, err
 }
 
+// CreateMessenger
+// Creates a messenger.  You can optionally specify an Id for the messenger, if not provided one will be generated.
+//   string messengerId (Optional) The Id for the messenger. If not provided a secure random UUID will be generated.
+//   MessengerRequest request The request object that contains all of the information used to create the messenger.
+func (c *FusionAuthClient) CreateMessenger(messengerId string, request MessengerRequest) (*MessengerResponse, *Errors, error) {
+    var resp MessengerResponse
+    var errors Errors
+
+    restClient := c.Start(&resp, &errors)
+    err := restClient.WithUri("/api/messenger").
+       WithUriSegment(messengerId).
+      WithJSONBody(request).
+    WithMethod(http.MethodPost).
+    Do()
+    if restClient.ErrorRef == nil {
+      return &resp, nil, err
+    }
+    return &resp, &errors, err
+}
+
 // CreateTenant
 // Creates a tenant. You can optionally specify an Id for the tenant, if not provided one will be generated.
 //   string tenantId (Optional) The Id for the tenant. If not provided a secure random UUID will be generated.
@@ -996,6 +1016,24 @@ func (c *FusionAuthClient) DeleteLambda(lambdaId string) (*BaseHTTPResponse, *Er
     restClient := c.Start(&resp, &errors)
     err := restClient.WithUri("/api/lambda").
        WithUriSegment(lambdaId).
+    WithMethod(http.MethodDelete).
+    Do()
+    if restClient.ErrorRef == nil {
+      return &resp, nil, err
+    }
+    return &resp, &errors, err
+}
+
+// DeleteMessenger
+// Deletes the messenger for the given Id.
+//   string messengerId The Id of the messenger to delete.
+func (c *FusionAuthClient) DeleteMessenger(messengerId string) (*BaseHTTPResponse, *Errors, error) {
+    var resp BaseHTTPResponse
+    var errors Errors
+
+    restClient := c.Start(&resp, &errors)
+    err := restClient.WithUri("/api/messenger").
+       WithUriSegment(messengerId).
     WithMethod(http.MethodDelete).
     Do()
     if restClient.ErrorRef == nil {
@@ -1872,6 +1910,26 @@ func (c *FusionAuthClient) PatchLambda(lambdaId string, request map[string]inter
     restClient := c.Start(&resp, &errors)
     err := restClient.WithUri("/api/lambda").
        WithUriSegment(lambdaId).
+      WithJSONBody(request).
+    WithMethod(http.MethodPatch).
+    Do()
+    if restClient.ErrorRef == nil {
+      return &resp, nil, err
+    }
+    return &resp, &errors, err
+}
+
+// PatchMessenger
+// Updates, via PATCH, the messenger with the given Id.
+//   string messengerId The Id of the messenger to update.
+//   MessengerRequest request The request that contains just the new messenger information.
+func (c *FusionAuthClient) PatchMessenger(messengerId string, request map[string]interface{}) (*MessengerResponse, *Errors, error) {
+    var resp MessengerResponse
+    var errors Errors
+
+    restClient := c.Start(&resp, &errors)
+    err := restClient.WithUri("/api/messenger").
+       WithUriSegment(messengerId).
       WithJSONBody(request).
     WithMethod(http.MethodPatch).
     Do()
@@ -2810,6 +2868,32 @@ func (c *FusionAuthClient) RetrieveLoginReport(applicationId string, start int64
       return &resp, nil, err
     }
     return &resp, &errors, err
+}
+
+// RetrieveMessenger
+// Retrieves the messenger with the given Id.
+//   string messengerId The Id of the messenger.
+func (c *FusionAuthClient) RetrieveMessenger(messengerId string) (*MessengerResponse, error) {
+    var resp MessengerResponse
+
+    err := c.Start(&resp, nil).
+             WithUri("/api/messenger").
+       WithUriSegment(messengerId).
+    WithMethod(http.MethodGet).
+    Do()
+    return &resp, err
+}
+
+// RetrieveMessenger
+// Retrieves all of the messenger.
+func (c *FusionAuthClient) RetrieveMessenger() (*MessengerResponse, error) {
+    var resp MessengerResponse
+
+    err := c.Start(&resp, nil).
+             WithUri("/api/messenger").
+    WithMethod(http.MethodGet).
+    Do()
+    return &resp, err
 }
 
 // RetrieveMonthlyActiveReport
@@ -3943,6 +4027,26 @@ func (c *FusionAuthClient) UpdateLambda(lambdaId string, request LambdaRequest) 
     restClient := c.Start(&resp, &errors)
     err := restClient.WithUri("/api/lambda").
        WithUriSegment(lambdaId).
+      WithJSONBody(request).
+    WithMethod(http.MethodPut).
+    Do()
+    if restClient.ErrorRef == nil {
+      return &resp, nil, err
+    }
+    return &resp, &errors, err
+}
+
+// UpdateMessenger
+// Updates the messenger with the given Id.
+//   string messengerId The Id of the messenger to update.
+//   MessengerRequest request The request object that contains all of the new messenger information.
+func (c *FusionAuthClient) UpdateMessenger(messengerId string, request MessengerRequest) (*MessengerResponse, *Errors, error) {
+    var resp MessengerResponse
+    var errors Errors
+
+    restClient := c.Start(&resp, &errors)
+    err := restClient.WithUri("/api/messenger").
+       WithUriSegment(messengerId).
       WithJSONBody(request).
     WithMethod(http.MethodPut).
     Do()
