@@ -2884,9 +2884,9 @@ func (c *FusionAuthClient) RetrieveMessenger(messengerId string) (*MessengerResp
     return &resp, err
 }
 
-// RetrieveMessenger
-// Retrieves all of the messenger.
-func (c *FusionAuthClient) RetrieveMessenger() (*MessengerResponse, error) {
+// RetrieveMessengers
+// Retrieves all of the messengers.
+func (c *FusionAuthClient) RetrieveMessengers() (*MessengerResponse, error) {
     var resp MessengerResponse
 
     err := c.Start(&resp, nil).

@@ -3198,7 +3198,7 @@ type TwilioConfiguration struct {
  */
 type TwilioMessengerConfiguration struct {
   BaseMessengerConfiguration
-  AccountSid                       string                             `json:"accountSid,omitempty"`
+  AccountSID                       string                             `json:"accountSID,omitempty"`
   AuthToken                        string                             `json:"authToken,omitempty"`
   FromPhoneNumber                  string                             `json:"fromPhoneNumber,omitempty"`
   MessagingServiceSid              string                             `json:"messagingServiceSid,omitempty"`
