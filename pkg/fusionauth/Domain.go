@@ -1633,7 +1633,6 @@ func (b *IntegrationResponse) SetStatus(status int) {
 type Integrations struct {
   Cleanspeak                       CleanSpeakConfiguration            `json:"cleanspeak,omitempty"`
   Kafka                            KafkaConfiguration                 `json:"kafka,omitempty"`
-  Twilio                           TwilioConfiguration                `json:"twilio,omitempty"`
 }
 
 /**
@@ -3178,20 +3177,6 @@ const (
   TransactionType_SuperMajority                    TransactionType                    = "SuperMajority"
   TransactionType_AbsoluteMajority                 TransactionType                    = "AbsoluteMajority"
 )
-
-/**
- * Twilio Service Configuration.
- *
- * @author Daniel DeGroff
- */
-type TwilioConfiguration struct {
-  Enableable
-  AccountSID                       string                             `json:"accountSID,omitempty"`
-  AuthToken                        string                             `json:"authToken,omitempty"`
-  FromPhoneNumber                  string                             `json:"fromPhoneNumber,omitempty"`
-  MessagingServiceSid              string                             `json:"messagingServiceSid,omitempty"`
-  Url                              string                             `json:"url,omitempty"`
-}
 
 /**
  * @author Brett Guy
