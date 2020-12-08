@@ -17,6 +17,11 @@
 
 package fusionauth
 
+import(
+  "fmt"
+  "strings"
+)
+
 type StatusAble interface {
   SetStatus(status int)
 }
@@ -101,9 +106,6 @@ const (
   Algorithm_HS256                            Algorithm                          = "HS256"
   Algorithm_HS384                            Algorithm                          = "HS384"
   Algorithm_HS512                            Algorithm                          = "HS512"
-  Algorithm_PS256                            Algorithm                          = "PS256"
-  Algorithm_PS384                            Algorithm                          = "PS384"
-  Algorithm_PS512                            Algorithm                          = "PS512"
   Algorithm_RS256                            Algorithm                          = "RS256"
   Algorithm_RS384                            Algorithm                          = "RS384"
   Algorithm_RS512                            Algorithm                          = "RS512"
@@ -870,6 +872,25 @@ type Error struct {
 type Errors struct {
   FieldErrors                      map[string][]Error                 `json:"fieldErrors,omitempty"`
   GeneralErrors                    []Error                            `json:"generalErrors,omitempty"`
+}
+
+func (e Errors) Present() bool {
+	return len(e.FieldErrors) != 0 || len(e.GeneralErrors) != 0
+}
+
+func (e Errors) Error() string {
+	var messages []string
+	for _, generalError := range e.GeneralErrors {
+		messages = append(messages, generalError.Message)
+	}
+	for fieldName, fieldErrors := range e.FieldErrors {
+		var fieldMessages []string
+		for _, fieldError := range fieldErrors {
+			fieldMessages = append(fieldMessages, fieldError.Message)
+		}
+		messages = append(messages, fmt.Sprintf("%s: %s", fieldName, strings.Join(fieldMessages, ",")))
+	}
+	return strings.Join(messages, " ")
 }
 
 /**
@@ -2175,6 +2196,47 @@ func (b *MemberResponse) SetStatus(status int) {
 }
 
 /**
+ * An incredible simplified view of a message
+ *
+ * @author Michael Sleevi
+ */
+type Message struct {
+  Text                             string                             `json:"text,omitempty"`
+}
+
+/**
+ * Stores an message template used to distribute messages;
+ *
+ * @author Michael Sleevi
+ */
+type MessageTemplate struct {
+  DefaultTemplate                  string                             `json:"defaultTemplate,omitempty"`
+  Id                               string                             `json:"id,omitempty"`
+  InsertInstant                    int64                              `json:"insertInstant,omitempty"`
+  LastUpdateInstant                int64                              `json:"lastUpdateInstant,omitempty"`
+  LocalizedTemplates               map[string]string                  `json:"localizedTemplates,omitempty"`
+  Name                             string                             `json:"name,omitempty"`
+}
+
+/**
+ * A Message Template Request to the API
+ *
+ * @author Michael Sleevi
+ */
+type MessageTemplateRequest struct {
+  MessageTemplate                  MessageTemplate                    `json:"messageTemplate,omitempty"`
+}
+
+type MessageTemplateResponse struct {
+  BaseHTTPResponse
+  MessageTemplate                  MessageTemplate                    `json:"messageTemplate,omitempty"`
+  MessageTemplates                 []MessageTemplate                  `json:"messageTemplates,omitempty"`
+}
+func (b *MessageTemplateResponse) SetStatus(status int) {
+  b.StatusCode = status
+}
+
+/**
  * @author Brett Guy
  */
 type MessengerRequest struct {
@@ -2514,6 +2576,23 @@ type PendingResponse struct {
   Users                            []User                             `json:"users,omitempty"`
 }
 func (b *PendingResponse) SetStatus(status int) {
+  b.StatusCode = status
+}
+
+/**
+ * @author Michael Sleevi
+ */
+type PreviewMessageTemplateRequest struct {
+  Locale                           string                             `json:"locale,omitempty"`
+  MessageTemplate                  MessageTemplate                    `json:"messageTemplate,omitempty"`
+}
+
+type PreviewMessageTemplateResponse struct {
+  BaseHTTPResponse
+  Errors                           Errors                             `json:"errors,omitempty"`
+  Message                          Message                            `json:"message,omitempty"`
+}
+func (b *PreviewMessageTemplateResponse) SetStatus(status int) {
   b.StatusCode = status
 }
 
