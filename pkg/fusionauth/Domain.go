@@ -1391,6 +1391,14 @@ type GenericConnectorConfiguration struct {
 }
 
 /**
+ * @author Brett Guy
+ */
+type GenericMessengerConfiguration struct {
+  BaseMessengerConfiguration
+  Url                              string                             `json:"url,omitempty"`
+}
+
+/**
  * @author Daniel DeGroff
  */
 type GoogleApplicationConfiguration struct {
@@ -1917,6 +1925,10 @@ type Lambda struct {
   Type                             LambdaType                         `json:"type,omitempty"`
 }
 
+type ProviderLambdaConfiguration struct {
+  ReconcileId                      string                             `json:"reconcileId,omitempty"`
+}
+
 type LambdaConfiguration struct {
   AccessTokenPopulateId            string                             `json:"accessTokenPopulateId,omitempty"`
   IdTokenPopulateId                string                             `json:"idTokenPopulateId,omitempty"`
@@ -1924,10 +1936,6 @@ type LambdaConfiguration struct {
 }
 
 type ConnectorLambdaConfiguration struct {
-  ReconcileId                      string                             `json:"reconcileId,omitempty"`
-}
-
-type ProviderLambdaConfiguration struct {
   ReconcileId                      string                             `json:"reconcileId,omitempty"`
 }
 
@@ -2261,7 +2269,6 @@ func (b *MessengerResponse) SetStatus(status int) {
 type MessengerType string
 const (
   MessengerType_Generic                          MessengerType                      = "Generic"
-  MessengerType_REST                             MessengerType                      = "REST"
   MessengerType_Twilio                           MessengerType                      = "Twilio"
   MessengerType_Email                            MessengerType                      = "Email"
 )
