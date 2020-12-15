@@ -387,9 +387,7 @@ type BaseLoginRequest struct {
   NoJWT                            bool                               `json:"noJWT"`
 }
 
-/**
- * @author Brett Guy
- */
+// Do not require a setter for 'type', it is defined by the concrete class and is not mutable
 type BaseMessengerConfiguration struct {
   Data                             map[string]interface{}             `json:"data,omitempty"`
   Debug                            bool                               `json:"debug"`
@@ -769,9 +767,7 @@ type EmailConfiguration struct {
   VerifyEmailWhenChanged           bool                               `json:"verifyEmailWhenChanged"`
 }
 
-/**
- * @author Brett Guy
- */
+// thinking?
 type EmailMessengerConfiguration struct {
   BaseMessengerConfiguration
   DefaultFromEmail                 string                             `json:"defaultFromEmail,omitempty"`
@@ -2236,6 +2232,9 @@ type MessageTemplateRequest struct {
   MessageTemplate                  MessageTemplate                    `json:"messageTemplate,omitempty"`
 }
 
+/**
+ * @author Michael Sleevi
+ */
 type MessageTemplateResponse struct {
   BaseHTTPResponse
   MessageTemplate                  MessageTemplate                    `json:"messageTemplate,omitempty"`
@@ -2605,6 +2604,9 @@ type PreviewMessageTemplateRequest struct {
   MessageTemplate                  MessageTemplate                    `json:"messageTemplate,omitempty"`
 }
 
+/**
+ * @author Michael Sleevi
+ */
 type PreviewMessageTemplateResponse struct {
   BaseHTTPResponse
   Errors                           Errors                             `json:"errors,omitempty"`
