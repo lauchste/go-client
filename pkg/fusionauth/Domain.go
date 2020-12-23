@@ -767,6 +767,31 @@ type EmailConfiguration struct {
   VerifyEmailWhenChanged           bool                               `json:"verifyEmailWhenChanged"`
 }
 
+type EmailMessage struct {
+  Attachments                      []Attachment                       `json:"attachments,omitempty"`
+  Bcc                              []EmailAddress                     `json:"bcc,omitempty"`
+  Cc                               []EmailAddress                     `json:"cc,omitempty"`
+  From                             EmailAddress                       `json:"from,omitempty"`
+  Html                             string                             `json:"html,omitempty"`
+  ReplyTo                          EmailAddress                       `json:"replyTo,omitempty"`
+  Subject                          string                             `json:"subject,omitempty"`
+  Text                             string                             `json:"text,omitempty"`
+  To                               []EmailAddress                     `json:"to,omitempty"`
+}
+
+type EmailMessageTemplate struct {
+  MessageTemplate
+  DefaultFromName                  string                             `json:"defaultFromName,omitempty"`
+  DefaultHtmlTemplate              string                             `json:"defaultHtmlTemplate,omitempty"`
+  DefaultSubject                   string                             `json:"defaultSubject,omitempty"`
+  DefaultTextTemplate              string                             `json:"defaultTextTemplate,omitempty"`
+  FromEmail                        string                             `json:"fromEmail,omitempty"`
+  LocalizedFromNames               map[string]string                  `json:"localizedFromNames,omitempty"`
+  LocalizedHtmlTemplates           map[string]string                  `json:"localizedHtmlTemplates,omitempty"`
+  LocalizedSubjects                map[string]string                  `json:"localizedSubjects,omitempty"`
+  LocalizedTextTemplates           map[string]string                  `json:"localizedTextTemplates,omitempty"`
+}
+
 // thinking?
 type EmailMessengerConfiguration struct {
   BaseMessengerConfiguration
@@ -1922,10 +1947,6 @@ type Lambda struct {
   Type                             LambdaType                         `json:"type,omitempty"`
 }
 
-type ProviderLambdaConfiguration struct {
-  ReconcileId                      string                             `json:"reconcileId,omitempty"`
-}
-
 type LambdaConfiguration struct {
   AccessTokenPopulateId            string                             `json:"accessTokenPopulateId,omitempty"`
   IdTokenPopulateId                string                             `json:"idTokenPopulateId,omitempty"`
@@ -1933,6 +1954,10 @@ type LambdaConfiguration struct {
 }
 
 type ConnectorLambdaConfiguration struct {
+  ReconcileId                      string                             `json:"reconcileId,omitempty"`
+}
+
+type ProviderLambdaConfiguration struct {
   ReconcileId                      string                             `json:"reconcileId,omitempty"`
 }
 
@@ -2200,13 +2225,7 @@ func (b *MemberResponse) SetStatus(status int) {
   b.StatusCode = status
 }
 
-/**
- * An incredible simplified view of a message
- *
- * @author Michael Sleevi
- */
 type Message struct {
-  Text                             string                             `json:"text,omitempty"`
 }
 
 /**
@@ -2215,12 +2234,12 @@ type Message struct {
  * @author Michael Sleevi
  */
 type MessageTemplate struct {
-  DefaultTemplate                  string                             `json:"defaultTemplate,omitempty"`
+  Data                             map[string]interface{}             `json:"data,omitempty"`
   Id                               string                             `json:"id,omitempty"`
   InsertInstant                    int64                              `json:"insertInstant,omitempty"`
   LastUpdateInstant                int64                              `json:"lastUpdateInstant,omitempty"`
-  LocalizedTemplates               map[string]string                  `json:"localizedTemplates,omitempty"`
   Name                             string                             `json:"name,omitempty"`
+  Type                             MessageType                        `json:"type,omitempty"`
 }
 
 /**
@@ -2243,6 +2262,12 @@ type MessageTemplateResponse struct {
 func (b *MessageTemplateResponse) SetStatus(status int) {
   b.StatusCode = status
 }
+
+type MessageType string
+const (
+  MessageType_SMS                              MessageType                        = "SMS"
+  MessageType_Email                            MessageType                        = "Email"
+)
 
 /**
  * @author Brett Guy
@@ -2998,6 +3023,20 @@ type SendResponse struct {
 }
 func (b *SendResponse) SetStatus(status int) {
   b.StatusCode = status
+}
+
+/**
+ * @author Michael Sleevi
+ */
+type SMSMessage struct {
+  PhoneNumber                      string                             `json:"phoneNumber,omitempty"`
+  TextMessage                      string                             `json:"textMessage,omitempty"`
+}
+
+type SMSMessageTemplate struct {
+  MessageTemplate
+  DefaultTemplate                  string                             `json:"defaultTemplate,omitempty"`
+  LocalizedTemplates               map[string]string                  `json:"localizedTemplates,omitempty"`
 }
 
 /**
