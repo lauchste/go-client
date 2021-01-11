@@ -1947,10 +1947,6 @@ type Lambda struct {
   Type                             LambdaType                         `json:"type,omitempty"`
 }
 
-type ProviderLambdaConfiguration struct {
-  ReconcileId                      string                             `json:"reconcileId,omitempty"`
-}
-
 type LambdaConfiguration struct {
   AccessTokenPopulateId            string                             `json:"accessTokenPopulateId,omitempty"`
   IdTokenPopulateId                string                             `json:"idTokenPopulateId,omitempty"`
@@ -1958,6 +1954,10 @@ type LambdaConfiguration struct {
 }
 
 type ConnectorLambdaConfiguration struct {
+  ReconcileId                      string                             `json:"reconcileId,omitempty"`
+}
+
+type ProviderLambdaConfiguration struct {
   ReconcileId                      string                             `json:"reconcileId,omitempty"`
 }
 
