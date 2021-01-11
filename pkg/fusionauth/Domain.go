@@ -2325,6 +2325,18 @@ func (b *MonthlyActiveUserReportResponse) SetStatus(status int) {
   b.StatusCode = status
 }
 
+type MultiFactorConfiguration struct {
+  AvailableTypes                   []MessageType                      `json:"availableTypes,omitempty"`
+  CurrentTypes                     []MessageType                      `json:"currentTypes,omitempty"`
+  Templates                        []MultiFactorTypeConfiguration     `json:"templates,omitempty"`
+}
+
+type MultiFactorTypeConfiguration struct {
+  MessengerId                      string                             `json:"messengerId,omitempty"`
+  TemplateId                       string                             `json:"templateId,omitempty"`
+  Type                             MessageType                        `json:"type,omitempty"`
+}
+
 /**
  * Helper methods for normalizing values.
  *
@@ -3158,6 +3170,7 @@ type Tenant struct {
   LogoutURL                        string                             `json:"logoutURL,omitempty"`
   MaximumPasswordAge               MaximumPasswordAge                 `json:"maximumPasswordAge,omitempty"`
   MinimumPasswordAge               MinimumPasswordAge                 `json:"minimumPasswordAge,omitempty"`
+  MultiFactorConfiguration         MultiFactorConfiguration           `json:"multiFactorConfiguration,omitempty"`
   Name                             string                             `json:"name,omitempty"`
   PasswordEncryptionConfiguration  PasswordEncryptionConfiguration    `json:"passwordEncryptionConfiguration,omitempty"`
   PasswordValidationRules          PasswordValidationRules            `json:"passwordValidationRules,omitempty"`
