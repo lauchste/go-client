@@ -3117,10 +3117,12 @@ type SystemLogsExportRequest struct {
 }
 
 type Templates struct {
+  AccountIndex                     string                             `json:"accountIndex,omitempty"`
   EmailComplete                    string                             `json:"emailComplete,omitempty"`
   EmailSend                        string                             `json:"emailSend,omitempty"`
   EmailVerify                      string                             `json:"emailVerify,omitempty"`
   Helpers                          string                             `json:"helpers,omitempty"`
+  Index                            string                             `json:"index,omitempty"`
   Oauth2Authorize                  string                             `json:"oauth2Authorize,omitempty"`
   Oauth2ChildRegistrationNotAllowed string                             `json:"oauth2ChildRegistrationNotAllowed,omitempty"`
   Oauth2ChildRegistrationNotAllowedComplete string                             `json:"oauth2ChildRegistrationNotAllowedComplete,omitempty"`
