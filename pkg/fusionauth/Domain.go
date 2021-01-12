@@ -1417,6 +1417,12 @@ type GenericConnectorConfiguration struct {
  */
 type GenericMessengerConfiguration struct {
   BaseMessengerConfiguration
+  ConnectTimeout                   int                                `json:"connectTimeout,omitempty"`
+  Headers                          map[string]string                  `json:"headers,omitempty"`
+  HttpAuthenticationPassword       string                             `json:"httpAuthenticationPassword,omitempty"`
+  HttpAuthenticationUsername       string                             `json:"httpAuthenticationUsername,omitempty"`
+  ReadTimeout                      int                                `json:"readTimeout,omitempty"`
+  SslCertificate                   string                             `json:"sslCertificate,omitempty"`
   Url                              string                             `json:"url,omitempty"`
 }
 
@@ -1848,6 +1854,15 @@ type JWTRefreshTokenRevokeEvent struct {
  */
 type KafkaConfiguration struct {
   Enableable
+  DefaultTopic                     string                             `json:"defaultTopic,omitempty"`
+  Producer                         map[string]string                  `json:"producer,omitempty"`
+}
+
+/**
+ * @author Brett Guy
+ */
+type KafkaMessengerConfiguration struct {
+  BaseMessengerConfiguration
   DefaultTopic                     string                             `json:"defaultTopic,omitempty"`
   Producer                         map[string]string                  `json:"producer,omitempty"`
 }
@@ -2296,6 +2311,7 @@ const (
   MessengerType_Generic                          MessengerType                      = "Generic"
   MessengerType_Twilio                           MessengerType                      = "Twilio"
   MessengerType_Email                            MessengerType                      = "Email"
+  MessengerType_Kafka                            MessengerType                      = "Kafka"
 )
 
 type MetaData struct {
