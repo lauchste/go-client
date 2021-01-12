@@ -1947,6 +1947,10 @@ type Lambda struct {
   Type                             LambdaType                         `json:"type,omitempty"`
 }
 
+type ProviderLambdaConfiguration struct {
+  ReconcileId                      string                             `json:"reconcileId,omitempty"`
+}
+
 type LambdaConfiguration struct {
   AccessTokenPopulateId            string                             `json:"accessTokenPopulateId,omitempty"`
   IdTokenPopulateId                string                             `json:"idTokenPopulateId,omitempty"`
@@ -1954,10 +1958,6 @@ type LambdaConfiguration struct {
 }
 
 type ConnectorLambdaConfiguration struct {
-  ReconcileId                      string                             `json:"reconcileId,omitempty"`
-}
-
-type ProviderLambdaConfiguration struct {
   ReconcileId                      string                             `json:"reconcileId,omitempty"`
 }
 
@@ -2326,12 +2326,6 @@ func (b *MonthlyActiveUserReportResponse) SetStatus(status int) {
 }
 
 type MultiFactorConfiguration struct {
-  AvailableTypes                   []MessageType                      `json:"availableTypes,omitempty"`
-  CurrentTypes                     []MessageType                      `json:"currentTypes,omitempty"`
-  Templates                        []MultiFactorTypeConfiguration     `json:"templates,omitempty"`
-}
-
-type MultiFactorTypeConfiguration struct {
   MessengerId                      string                             `json:"messengerId,omitempty"`
   TemplateId                       string                             `json:"templateId,omitempty"`
   Type                             MessageType                        `json:"type,omitempty"`
@@ -3170,7 +3164,7 @@ type Tenant struct {
   LogoutURL                        string                             `json:"logoutURL,omitempty"`
   MaximumPasswordAge               MaximumPasswordAge                 `json:"maximumPasswordAge,omitempty"`
   MinimumPasswordAge               MinimumPasswordAge                 `json:"minimumPasswordAge,omitempty"`
-  MultiFactorConfiguration         MultiFactorConfiguration           `json:"multiFactorConfiguration,omitempty"`
+  MultiFactorConfigurations        []MultiFactorConfiguration         `json:"multiFactorConfigurations,omitempty"`
   Name                             string                             `json:"name,omitempty"`
   PasswordEncryptionConfiguration  PasswordEncryptionConfiguration    `json:"passwordEncryptionConfiguration,omitempty"`
   PasswordValidationRules          PasswordValidationRules            `json:"passwordValidationRules,omitempty"`
