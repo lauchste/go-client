@@ -152,6 +152,7 @@ type Application struct {
   LambdaConfiguration              LambdaConfiguration                `json:"lambdaConfiguration,omitempty"`
   LastUpdateInstant                int64                              `json:"lastUpdateInstant,omitempty"`
   LoginConfiguration               LoginConfiguration                 `json:"loginConfiguration,omitempty"`
+  MultiFactorConfiguration         ApplicationMultiFactorConfiguration `json:"multiFactorConfiguration,omitempty"`
   Name                             string                             `json:"name,omitempty"`
   OauthConfiguration               OAuth2Configuration                `json:"oauthConfiguration,omitempty"`
   PasswordlessConfiguration        PasswordlessConfiguration          `json:"passwordlessConfiguration,omitempty"`
@@ -177,6 +178,13 @@ type ApplicationEmailConfiguration struct {
  */
 type ApplicationFormConfiguration struct {
   AdminRegistrationFormId          string                             `json:"adminRegistrationFormId,omitempty"`
+}
+
+/**
+ * @author Daniel DeGroff
+ */
+type ApplicationMultiFactorConfiguration struct {
+  TenantMultiFactorConfiguration
 }
 
 /**
@@ -767,6 +775,9 @@ type EmailConfiguration struct {
   VerifyEmailWhenChanged           bool                               `json:"verifyEmailWhenChanged"`
 }
 
+/**
+ * @author Mikey Sleevi
+ */
 type EmailMessage struct {
   Attachments                      []Attachment                       `json:"attachments,omitempty"`
   Bcc                              []EmailAddress                     `json:"bcc,omitempty"`
@@ -779,6 +790,9 @@ type EmailMessage struct {
   To                               []EmailAddress                     `json:"to,omitempty"`
 }
 
+/**
+ * @author Mikey Sleevi
+ */
 type EmailMessageTemplate struct {
   MessageTemplate
   DefaultFromName                  string                             `json:"defaultFromName,omitempty"`
@@ -1636,6 +1650,9 @@ func (b *IdentityProviderStartLoginResponse) SetStatus(status int) {
   b.StatusCode = status
 }
 
+/**
+ * @author Daniel DeGroff
+ */
 type IdentityProviderType string
 const (
   IdentityProviderType_ExternalJWT                      IdentityProviderType               = "ExternalJWT"
@@ -2264,6 +2281,9 @@ func (b *MemberResponse) SetStatus(status int) {
   b.StatusCode = status
 }
 
+/**
+ * @author Mikey Sleevi
+ */
 type Message struct {
 }
 
@@ -2302,6 +2322,9 @@ func (b *MessageTemplateResponse) SetStatus(status int) {
   b.StatusCode = status
 }
 
+/**
+ * @author Mikey Sleevi
+ */
 type MessageType string
 const (
   MessageType_SMS                              MessageType                        = "SMS"
@@ -2363,12 +2386,6 @@ type MonthlyActiveUserReportResponse struct {
 }
 func (b *MonthlyActiveUserReportResponse) SetStatus(status int) {
   b.StatusCode = status
-}
-
-type MultiFactorConfiguration struct {
-  MessengerId                      string                             `json:"messengerId,omitempty"`
-  TemplateId                       string                             `json:"templateId,omitempty"`
-  Type                             MessageType                        `json:"type,omitempty"`
 }
 
 /**
@@ -3079,6 +3096,9 @@ type SMSMessage struct {
   TextMessage                      string                             `json:"textMessage,omitempty"`
 }
 
+/**
+ * @author Michael Sleevi
+ */
 type SMSMessageTemplate struct {
   MessageTemplate
   DefaultTemplate                  string                             `json:"defaultTemplate,omitempty"`
@@ -3205,8 +3225,9 @@ type Tenant struct {
   LastUpdateInstant                int64                              `json:"lastUpdateInstant,omitempty"`
   LogoutURL                        string                             `json:"logoutURL,omitempty"`
   MaximumPasswordAge               MaximumPasswordAge                 `json:"maximumPasswordAge,omitempty"`
+  MessengerConfiguration           TenantMessengerConfiguration       `json:"messengerConfiguration,omitempty"`
   MinimumPasswordAge               MinimumPasswordAge                 `json:"minimumPasswordAge,omitempty"`
-  MultiFactorConfigurations        []MultiFactorConfiguration         `json:"multiFactorConfigurations,omitempty"`
+  MultiFactorConfiguration         TenantMultiFactorConfiguration     `json:"multiFactorConfiguration,omitempty"`
   Name                             string                             `json:"name,omitempty"`
   PasswordEncryptionConfiguration  PasswordEncryptionConfiguration    `json:"passwordEncryptionConfiguration,omitempty"`
   PasswordValidationRules          PasswordValidationRules            `json:"passwordValidationRules,omitempty"`
@@ -3226,6 +3247,19 @@ type Tenantable struct {
  */
 type TenantFormConfiguration struct {
   AdminUserFormId                  string                             `json:"adminUserFormId,omitempty"`
+}
+
+/**
+ * @author Daniel DeGroff
+ */
+type TenantMessengerConfiguration struct {
+}
+
+/**
+ * @author Mikey Sleevi
+ */
+type TenantMultiFactorConfiguration struct {
+  SmsMessageTemplateId             string                             `json:"smsMessageTemplateId,omitempty"`
 }
 
 /**
