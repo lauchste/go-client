@@ -178,6 +178,7 @@ type ApplicationEmailConfiguration struct {
  */
 type ApplicationFormConfiguration struct {
   AdminRegistrationFormId          string                             `json:"adminRegistrationFormId,omitempty"`
+  SelfServiceUserFormId            string                             `json:"selfServiceUserFormId,omitempty"`
 }
 
 /**
@@ -403,6 +404,7 @@ type BaseMessengerConfiguration struct {
   InsertInstant                    int64                              `json:"insertInstant,omitempty"`
   LastUpdateInstant                int64                              `json:"lastUpdateInstant,omitempty"`
   Name                             string                             `json:"name,omitempty"`
+  Transport                        string                             `json:"transport,omitempty"`
   Type                             MessengerType                      `json:"type,omitempty"`
 }
 
@@ -1399,6 +1401,7 @@ const (
   FormType_Registration                     FormType                           = "registration"
   FormType_AdminRegistration                FormType                           = "adminRegistration"
   FormType_AdminUser                        FormType                           = "adminUser"
+  FormType_SelfServiceUser                  FormType                           = "selfServiceUser"
 )
 
 /**
@@ -3253,6 +3256,7 @@ type TenantFormConfiguration struct {
  * @author Daniel DeGroff
  */
 type TenantMessengerConfiguration struct {
+  Transports                       map[string]string                  `json:"transports,omitempty"`
 }
 
 /**
@@ -3399,6 +3403,12 @@ const (
   TransactionType_SuperMajority                    TransactionType                    = "SuperMajority"
   TransactionType_AbsoluteMajority                 TransactionType                    = "AbsoluteMajority"
 )
+
+/**
+ * @author Daniel DeGroff
+ */
+type Transport struct {
+}
 
 /**
  * @author Brett Guy
