@@ -3197,6 +3197,7 @@ type Templates struct {
   Oauth2Passwordless               string                             `json:"oauth2Passwordless,omitempty"`
   Oauth2Register                   string                             `json:"oauth2Register,omitempty"`
   Oauth2TwoFactor                  string                             `json:"oauth2TwoFactor,omitempty"`
+  Oauth2TwoFactorOptions           string                             `json:"oauth2TwoFactorOptions,omitempty"`
   Oauth2Wait                       string                             `json:"oauth2Wait,omitempty"`
   PasswordChange                   string                             `json:"passwordChange,omitempty"`
   PasswordComplete                 string                             `json:"passwordComplete,omitempty"`
@@ -3403,12 +3404,6 @@ const (
   TransactionType_SuperMajority                    TransactionType                    = "SuperMajority"
   TransactionType_AbsoluteMajority                 TransactionType                    = "AbsoluteMajority"
 )
-
-/**
- * @author Daniel DeGroff
- */
-type Transport struct {
-}
 
 /**
  * @author Brett Guy
