@@ -816,6 +816,7 @@ type EmailMessengerConfiguration struct {
   Host                             string                             `json:"host,omitempty"`
   Password                         string                             `json:"password,omitempty"`
   Port                             int                                `json:"port,omitempty"`
+  Properties                       string                             `json:"properties,omitempty"`
   Security                         EmailSecurityType                  `json:"security,omitempty"`
   Username                         string                             `json:"username,omitempty"`
 }
@@ -1089,6 +1090,8 @@ type ExternalIdentifierConfiguration struct {
   SetupPasswordIdGenerator         SecureGeneratorConfiguration       `json:"setupPasswordIdGenerator,omitempty"`
   SetupPasswordIdTimeToLiveInSeconds int                                `json:"setupPasswordIdTimeToLiveInSeconds,omitempty"`
   TwoFactorIdTimeToLiveInSeconds   int                                `json:"twoFactorIdTimeToLiveInSeconds,omitempty"`
+  TwoFactorOneTimeCodeIdGenerator  SecureGeneratorConfiguration       `json:"twoFactorOneTimeCodeIdGenerator,omitempty"`
+  TwoFactorOneTimeCodeIdTimeToLiveInSeconds int                                `json:"twoFactorOneTimeCodeIdTimeToLiveInSeconds,omitempty"`
   TwoFactorTrustIdTimeToLiveInSeconds int                                `json:"twoFactorTrustIdTimeToLiveInSeconds,omitempty"`
 }
 
