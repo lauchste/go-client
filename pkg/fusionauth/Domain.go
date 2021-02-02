@@ -3183,6 +3183,7 @@ type SystemLogsExportRequest struct {
 }
 
 type Templates struct {
+  AccountEdit                      string                             `json:"accountEdit,omitempty"`
   AccountIndex                     string                             `json:"accountIndex,omitempty"`
   EmailComplete                    string                             `json:"emailComplete,omitempty"`
   EmailSend                        string                             `json:"emailSend,omitempty"`
@@ -3267,6 +3268,7 @@ type TenantMessengerConfiguration struct {
  * @author Mikey Sleevi
  */
 type TenantMultiFactorConfiguration struct {
+  EmailMessageTemplateId           string                             `json:"emailMessageTemplateId,omitempty"`
   SmsMessageTemplateId             string                             `json:"smsMessageTemplateId,omitempty"`
 }
 
