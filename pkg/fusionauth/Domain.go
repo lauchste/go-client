@@ -185,7 +185,8 @@ type ApplicationFormConfiguration struct {
  * @author Daniel DeGroff
  */
 type ApplicationMultiFactorConfiguration struct {
-  TenantMultiFactorConfiguration
+  Email                            MultiFactorEmailTemplate           `json:"email,omitempty"`
+  Sms                              MultiFactorSMSTemplate             `json:"sms,omitempty"`
 }
 
 /**
@@ -775,50 +776,6 @@ type EmailConfiguration struct {
   VerificationEmailTemplateId      string                             `json:"verificationEmailTemplateId,omitempty"`
   VerifyEmail                      bool                               `json:"verifyEmail"`
   VerifyEmailWhenChanged           bool                               `json:"verifyEmailWhenChanged"`
-}
-
-/**
- * @author Mikey Sleevi
- */
-type EmailMessage struct {
-  Attachments                      []Attachment                       `json:"attachments,omitempty"`
-  Bcc                              []EmailAddress                     `json:"bcc,omitempty"`
-  Cc                               []EmailAddress                     `json:"cc,omitempty"`
-  From                             EmailAddress                       `json:"from,omitempty"`
-  Html                             string                             `json:"html,omitempty"`
-  ReplyTo                          EmailAddress                       `json:"replyTo,omitempty"`
-  Subject                          string                             `json:"subject,omitempty"`
-  Text                             string                             `json:"text,omitempty"`
-  To                               []EmailAddress                     `json:"to,omitempty"`
-}
-
-/**
- * @author Mikey Sleevi
- */
-type EmailMessageTemplate struct {
-  MessageTemplate
-  DefaultFromName                  string                             `json:"defaultFromName,omitempty"`
-  DefaultHtmlTemplate              string                             `json:"defaultHtmlTemplate,omitempty"`
-  DefaultSubject                   string                             `json:"defaultSubject,omitempty"`
-  DefaultTextTemplate              string                             `json:"defaultTextTemplate,omitempty"`
-  FromEmail                        string                             `json:"fromEmail,omitempty"`
-  LocalizedFromNames               map[string]string                  `json:"localizedFromNames,omitempty"`
-  LocalizedHtmlTemplates           map[string]string                  `json:"localizedHtmlTemplates,omitempty"`
-  LocalizedSubjects                map[string]string                  `json:"localizedSubjects,omitempty"`
-  LocalizedTextTemplates           map[string]string                  `json:"localizedTextTemplates,omitempty"`
-}
-
-// thinking?
-type EmailMessengerConfiguration struct {
-  BaseMessengerConfiguration
-  DefaultFromEmail                 string                             `json:"defaultFromEmail,omitempty"`
-  DefaultFromName                  string                             `json:"defaultFromName,omitempty"`
-  Host                             string                             `json:"host,omitempty"`
-  Password                         string                             `json:"password,omitempty"`
-  Port                             int                                `json:"port,omitempty"`
-  Properties                       string                             `json:"properties,omitempty"`
-  Security                         EmailSecurityType                  `json:"security,omitempty"`
-  Username                         string                             `json:"username,omitempty"`
 }
 
 type EmailPlus struct {
@@ -2334,7 +2291,6 @@ func (b *MessageTemplateResponse) SetStatus(status int) {
 type MessageType string
 const (
   MessageType_SMS                              MessageType                        = "SMS"
-  MessageType_Email                            MessageType                        = "Email"
 )
 
 /**
@@ -2362,9 +2318,8 @@ func (b *MessengerResponse) SetStatus(status int) {
 type MessengerType string
 const (
   MessengerType_Generic                          MessengerType                      = "Generic"
-  MessengerType_Twilio                           MessengerType                      = "Twilio"
-  MessengerType_Email                            MessengerType                      = "Email"
   MessengerType_Kafka                            MessengerType                      = "Kafka"
+  MessengerType_Twilio                           MessengerType                      = "Twilio"
 )
 
 type MetaData struct {
@@ -2392,6 +2347,25 @@ type MonthlyActiveUserReportResponse struct {
 }
 func (b *MonthlyActiveUserReportResponse) SetStatus(status int) {
   b.StatusCode = status
+}
+
+type MultiFactorEmailTemplate struct {
+  TemplateId                       string                             `json:"templateId,omitempty"`
+}
+
+type MultiFactorEmailTransport struct {
+  Enableable
+  TemplateId                       string                             `json:"templateId,omitempty"`
+}
+
+type MultiFactorSMSTemplate struct {
+  TemplateId                       string                             `json:"templateId,omitempty"`
+}
+
+type MultiFactorSMSTransport struct {
+  Enableable
+  MessengerId                      string                             `json:"messengerId,omitempty"`
+  TemplateId                       string                             `json:"templateId,omitempty"`
 }
 
 /**
@@ -3233,7 +3207,6 @@ type Tenant struct {
   LastUpdateInstant                int64                              `json:"lastUpdateInstant,omitempty"`
   LogoutURL                        string                             `json:"logoutURL,omitempty"`
   MaximumPasswordAge               MaximumPasswordAge                 `json:"maximumPasswordAge,omitempty"`
-  MessengerConfiguration           TenantMessengerConfiguration       `json:"messengerConfiguration,omitempty"`
   MinimumPasswordAge               MinimumPasswordAge                 `json:"minimumPasswordAge,omitempty"`
   MultiFactorConfiguration         TenantMultiFactorConfiguration     `json:"multiFactorConfiguration,omitempty"`
   Name                             string                             `json:"name,omitempty"`
@@ -3258,18 +3231,11 @@ type TenantFormConfiguration struct {
 }
 
 /**
- * @author Daniel DeGroff
- */
-type TenantMessengerConfiguration struct {
-  Transports                       map[string]string                  `json:"transports,omitempty"`
-}
-
-/**
  * @author Mikey Sleevi
  */
 type TenantMultiFactorConfiguration struct {
-  EmailMessageTemplateId           string                             `json:"emailMessageTemplateId,omitempty"`
-  SmsMessageTemplateId             string                             `json:"smsMessageTemplateId,omitempty"`
+  Email                            MultiFactorEmailTransport          `json:"email,omitempty"`
+  Sms                              MultiFactorSMSTransport            `json:"sms,omitempty"`
 }
 
 /**
@@ -3461,6 +3427,7 @@ type TwoFactorLoginRequest struct {
   Code                             string                             `json:"code,omitempty"`
   TrustComputer                    bool                               `json:"trustComputer"`
   TwoFactorId                      string                             `json:"twoFactorId,omitempty"`
+  UserId                           string                             `json:"userId,omitempty"`
 }
 
 /**
