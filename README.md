@@ -73,6 +73,48 @@ func Login() http.HandlerFunc {
 }
 ```
 
+You can also call the API directly without logging a user in. This code uses an API key to determine the number of tenants in a FusionAuth installation.
+
+```
+package main
+
+import (
+    "net/http"
+    "net/url"
+    "time"
+    "fmt"
+    
+    "github.com/FusionAuth/go-client/pkg/fusionauth"
+)
+
+const host = "http://localhost:9011"
+
+var apiKey = "API KEY"
+var httpClient = &http.Client{
+    Timeout: time.Second * 10,
+}
+
+func main() {
+    var baseURL, _ = url.Parse(host)
+
+    // Construct a new FusionAuth Client
+    var client = fusionauth.NewClient(httpClient, baseURL, apiKey)
+    
+    // for production code, don't ignore the error!
+    tenantResponse, _ := client.RetrieveTenants()
+    
+    fmt.Print(len(tenantResponse.Tenants))
+}
+```
+
+## Questions and support
+
+If you have a question or support issue regarding this client library, we'd love to hear from you.
+
+If you have a paid edition with support included, please [open a ticket in your account portal](https://account.fusionauth.io/account/support/). Learn more about [paid editions here](https://fusionauth.io/pricing/).
+
+Otherwise, please [post your question in the community forum](https://fusionauth.io/community/forum/).
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/FusionAuth/go-client.
@@ -81,7 +123,6 @@ If you find an issue with syntax, etc - this is likely a bug in the template. Fe
 - [Client Builder](https://github.com/FusionAuth/fusionauth-client-builder)
 - [go.client.ftl](https://github.com/FusionAuth/fusionauth-client-builder/blob/master/src/main/client/go.client.ftl)
 - [go.domain.ftl](https://github.com/FusionAuth/fusionauth-client-builder/blob/master/src/main/client/go.domain.ftl)
-
 
 ## License
 
