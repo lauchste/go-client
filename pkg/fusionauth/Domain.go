@@ -829,6 +829,75 @@ type Enableable struct {
 }
 
 /**
+ * Models an entity that a user can be granted permissions to. Or an entity that can be granted permissions to another entity.
+ *
+ * @author Brian Pontarelli
+ */
+type Entity struct {
+  ClientSecret                     string                             `json:"clientSecret,omitempty"`
+  Data                             map[string]interface{}             `json:"data,omitempty"`
+  Id                               string                             `json:"id,omitempty"`
+  InsertInstant                    int64                              `json:"insertInstant,omitempty"`
+  LastUpdateInstant                int64                              `json:"lastUpdateInstant,omitempty"`
+  Name                             string                             `json:"name,omitempty"`
+  ParentId                         string                             `json:"parentId,omitempty"`
+  TenantId                         string                             `json:"tenantId,omitempty"`
+  Type                             EntityType                         `json:"type,omitempty"`
+}
+
+/**
+ * Models an entity type that has a specific set of permissions. These are global objects and can be used across tenants.
+ *
+ * @author Brian Pontarelli
+ */
+type EntityType struct {
+  Data                             map[string]interface{}             `json:"data,omitempty"`
+  Id                               string                             `json:"id,omitempty"`
+  InsertInstant                    int64                              `json:"insertInstant,omitempty"`
+  LastUpdateInstant                int64                              `json:"lastUpdateInstant,omitempty"`
+  Name                             string                             `json:"name,omitempty"`
+  Permissions                      []EntityTypePermission             `json:"permissions,omitempty"`
+}
+
+/**
+ * Models a specific entity type permission. This permission can be granted to users or other entities.
+ *
+ * @author Brian Pontarelli
+ */
+type EntityTypePermission struct {
+  Data                             map[string]interface{}             `json:"data,omitempty"`
+  Description                      string                             `json:"description,omitempty"`
+  Id                               string                             `json:"id,omitempty"`
+  InsertInstant                    int64                              `json:"insertInstant,omitempty"`
+  IsDefault                        bool                               `json:"isDefault"`
+  LastUpdateInstant                int64                              `json:"lastUpdateInstant,omitempty"`
+  Name                             string                             `json:"name,omitempty"`
+}
+
+/**
+ * Entity Type API request object.
+ *
+ * @author Brian Pontarelli
+ */
+type EntityTypeRequest struct {
+  Type                             EntityType                         `json:"type,omitempty"`
+}
+
+/**
+ * Entity Type API response object.
+ *
+ * @author Brian Pontarelli
+ */
+type EntityTypeResponse struct {
+  BaseHTTPResponse
+  Type                             EntityType                         `json:"type,omitempty"`
+  Types                            []EntityType                       `json:"types,omitempty"`
+}
+func (b *EntityTypeResponse) SetStatus(status int) {
+  b.StatusCode = status
+}
+
+/**
  * Defines an error.
  *
  * @author Brian Pontarelli
@@ -3635,6 +3704,20 @@ func (b *UserDeleteResponse) SetStatus(status int) {
 type UserEmailVerifiedEvent struct {
   BaseEvent
   User                             User                               `json:"user,omitempty"`
+}
+
+/**
+ * Models the grant of zero or more permissions to a user for an entity.
+ *
+ * @author Brian Pontarelli
+ */
+type UserEntityGrant struct {
+  Data                             map[string]interface{}             `json:"data,omitempty"`
+  EntityId                         string                             `json:"entityId,omitempty"`
+  InsertInstant                    int64                              `json:"insertInstant,omitempty"`
+  LastUpdateInstant                int64                              `json:"lastUpdateInstant,omitempty"`
+  Permissions                      []string                           `json:"permissions,omitempty"`
+  UserId                           string                             `json:"userId,omitempty"`
 }
 
 /**

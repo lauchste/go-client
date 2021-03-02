@@ -423,6 +423,26 @@ func (c *FusionAuthClient) CreateEmailTemplate(emailTemplateId string, request E
     return &resp, &errors, err
 }
 
+// CreateEntityType
+// Creates an entity type. You can optionally specify an Id for the type, if not provided one will be generated.
+//   string entityTypeId (Optional) The Id for the entity type. If not provided a secure random UUID will be generated.
+//   EntityTypeRequest request The request object that contains all of the information used to create the entity type.
+func (c *FusionAuthClient) CreateEntityType(entityTypeId string, request EntityTypeRequest) (*EntityTypeResponse, *Errors, error) {
+    var resp EntityTypeResponse
+    var errors Errors
+
+    restClient := c.Start(&resp, &errors)
+    err := restClient.WithUri("/api/entity/type").
+       WithUriSegment(entityTypeId).
+      WithJSONBody(request).
+    WithMethod(http.MethodPost).
+    Do()
+    if restClient.ErrorRef == nil {
+      return &resp, nil, err
+    }
+    return &resp, &errors, err
+}
+
 // CreateFamily
 // Creates a family with the user id in the request as the owner and sole member of the family. You can optionally specify an id for the
 // family, if not provided one will be generated.
