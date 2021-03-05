@@ -834,6 +834,7 @@ type Enableable struct {
  * @author Brian Pontarelli
  */
 type Entity struct {
+  ClientId                         string                             `json:"clientId,omitempty"`
   ClientSecret                     string                             `json:"clientSecret,omitempty"`
   Data                             map[string]interface{}             `json:"data,omitempty"`
   Id                               string                             `json:"id,omitempty"`
@@ -843,6 +844,28 @@ type Entity struct {
   ParentId                         string                             `json:"parentId,omitempty"`
   TenantId                         string                             `json:"tenantId,omitempty"`
   Type                             EntityType                         `json:"type,omitempty"`
+}
+
+/**
+ * Entity API request object.
+ *
+ * @author Brian Pontarelli
+ */
+type EntityRequest struct {
+  Entity                           Entity                             `json:"entity,omitempty"`
+}
+
+/**
+ * Entity API response object.
+ *
+ * @author Brian Pontarelli
+ */
+type EntityResponse struct {
+  BaseHTTPResponse
+  Entity                           Entity                             `json:"entity,omitempty"`
+}
+func (b *EntityResponse) SetStatus(status int) {
+  b.StatusCode = status
 }
 
 /**
@@ -880,7 +903,7 @@ type EntityTypePermission struct {
  * @author Brian Pontarelli
  */
 type EntityTypeRequest struct {
-  Type                             EntityType                         `json:"type,omitempty"`
+  EntityType                       EntityType                         `json:"entityType,omitempty"`
 }
 
 /**
@@ -890,8 +913,8 @@ type EntityTypeRequest struct {
  */
 type EntityTypeResponse struct {
   BaseHTTPResponse
-  Type                             EntityType                         `json:"type,omitempty"`
-  Types                            []EntityType                       `json:"types,omitempty"`
+  EntityType                       EntityType                         `json:"entityType,omitempty"`
+  EntityTypes                      []EntityType                       `json:"entityTypes,omitempty"`
 }
 func (b *EntityTypeResponse) SetStatus(status int) {
   b.StatusCode = status
