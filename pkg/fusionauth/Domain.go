@@ -2705,7 +2705,7 @@ type PreviewMessageTemplateRequest struct {
 type PreviewMessageTemplateResponse struct {
   BaseHTTPResponse
   Errors                           Errors                             `json:"errors,omitempty"`
-  Message                          Message                            `json:"message,omitempty"`
+  Message                          SMSMessage                         `json:"message,omitempty"`
 }
 func (b *PreviewMessageTemplateResponse) SetStatus(status int) {
   b.StatusCode = status
@@ -3203,6 +3203,7 @@ type Templates struct {
   EmailVerify                      string                             `json:"emailVerify,omitempty"`
   Helpers                          string                             `json:"helpers,omitempty"`
   Index                            string                             `json:"index,omitempty"`
+  MultiFactorConfiguration         string                             `json:"multiFactorConfiguration,omitempty"`
   Oauth2Authorize                  string                             `json:"oauth2Authorize,omitempty"`
   Oauth2ChildRegistrationNotAllowed string                             `json:"oauth2ChildRegistrationNotAllowed,omitempty"`
   Oauth2ChildRegistrationNotAllowedComplete string                             `json:"oauth2ChildRegistrationNotAllowedComplete,omitempty"`
@@ -3491,8 +3492,10 @@ type TwoFactorRequest struct {
  * @author Daniel DeGroff
  */
 type TwoFactorSendRequest struct {
+  Code                             string                             `json:"code,omitempty"`
   MobilePhone                      string                             `json:"mobilePhone,omitempty"`
   Secret                           string                             `json:"secret,omitempty"`
+  Transport                        string                             `json:"transport,omitempty"`
   UserId                           string                             `json:"userId,omitempty"`
 }
 
