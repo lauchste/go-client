@@ -336,6 +336,18 @@ type BaseConnectorConfiguration struct {
 }
 
 /**
+ * @author Brian Pontarelli
+ */
+type BaseElasticSearchCriteria struct {
+  BaseSearchCriteria
+  AccurateTotal                    bool                               `json:"accurateTotal"`
+  Ids                              []string                           `json:"ids,omitempty"`
+  Query                            string                             `json:"query,omitempty"`
+  QueryString                      string                             `json:"queryString,omitempty"`
+  SortFields                       []SortField                        `json:"sortFields,omitempty"`
+}
+
+/**
  * Base-class for all FusionAuth events.
  *
  * @author Brian Pontarelli
@@ -866,6 +878,15 @@ type EntityResponse struct {
 }
 func (b *EntityResponse) SetStatus(status int) {
   b.StatusCode = status
+}
+
+/**
+ * This class is the entity query. It provides a build pattern as well as public fields for use on forms and in actions.
+ *
+ * @author Brian Pontarelli
+ */
+type EntitySearchCriteria struct {
+  BaseElasticSearchCriteria
 }
 
 /**
@@ -2923,6 +2944,29 @@ type SearchRequest struct {
 }
 
 /**
+ * Search API request.
+ *
+ * @author Brian Pontarelli
+ */
+type SearchRequest struct {
+  Search                           EntitySearchCriteria               `json:"search,omitempty"`
+}
+
+/**
+ * Search API response.
+ *
+ * @author Brian Pontarelli
+ */
+type SearchResponse struct {
+  BaseHTTPResponse
+  Entities                         []Entity                           `json:"entities,omitempty"`
+  Total                            int64                              `json:"total,omitempty"`
+}
+func (b *SearchResponse) SetStatus(status int) {
+  b.StatusCode = status
+}
+
+/**
  * Search API response.
  *
  * @author Brian Pontarelli
@@ -3898,12 +3942,7 @@ func (b *UserResponse) SetStatus(status int) {
  * @author Brian Pontarelli
  */
 type UserSearchCriteria struct {
-  BaseSearchCriteria
-  AccurateTotal                    bool                               `json:"accurateTotal"`
-  Ids                              []string                           `json:"ids,omitempty"`
-  Query                            string                             `json:"query,omitempty"`
-  QueryString                      string                             `json:"queryString,omitempty"`
-  SortFields                       []SortField                        `json:"sortFields,omitempty"`
+  BaseElasticSearchCriteria
 }
 
 /**
