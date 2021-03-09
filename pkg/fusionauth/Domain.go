@@ -2789,7 +2789,7 @@ func (b *RegistrationReportResponse) SetStatus(status int) {
 
 /**
  * Registration API request object.
- *
+ * Change: User -> *User
  * @author Brian Pontarelli
  */
 type RegistrationRequest struct {
